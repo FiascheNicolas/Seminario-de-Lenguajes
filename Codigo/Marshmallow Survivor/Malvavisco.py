@@ -77,13 +77,13 @@ class Malvavisco(pygame.sprite.Sprite):
         self.image= pygame.transform.scale(self.listaidle[self.posidle],(self.alto,self.ancho))   
         self.rect = self.image.get_rect()
         #self.rect.center=(x/2,y/2)# instancio la imagen en el centro de la pantalla
-        self.x=x
-        self.y=y
+        self.rect.x=x
+        self.rect.y=y
         #self.posactual=self.rect.y
         # self.rect.center=(0,0)# instancio la imagen en el centro de la pantalla
     def update(self, *args):
         #pygame.sprite.Sprite.update(self, *args)    
-        
+        print(str(self.rect.y))
         key=pygame.key.get_pressed() #detecto que tecla estoy presionando
         
         if key[pygame.K_SPACE]:
@@ -101,9 +101,7 @@ class Malvavisco(pygame.sprite.Sprite):
             
             self.rect.x -=self.velocidad
         
-            
-        
-        
+       
       
             
         if self.salto==False:
