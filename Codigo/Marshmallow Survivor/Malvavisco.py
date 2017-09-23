@@ -47,7 +47,7 @@ while contador !=21:
 class Malvavisco(pygame.sprite.Sprite):
     
         
-    def __init__(self,x,y):
+    def __init__(self,x,y,alto,ancho):
         pygame.sprite.Sprite.__init__(self)
         self.x=x
         self.y=y
@@ -58,8 +58,8 @@ class Malvavisco(pygame.sprite.Sprite):
         self.salto=False
         self.limite=False
         self.velocidad=3
-        self.alto=500
-        self.ancho=400
+        self.alto=alto
+        self.ancho=ancho
         self.posrun=0
         self.posidle=0
         self.posjump=0
@@ -76,8 +76,10 @@ class Malvavisco(pygame.sprite.Sprite):
         
         self.image= pygame.transform.scale(self.listaidle[self.posidle],(self.alto,self.ancho))   
         self.rect = self.image.get_rect()
-        self.rect.center=(x/2,y/2)# instancio la imagen en el centro de la pantalla
-        self.posactual=self.rect.y
+        #self.rect.center=(x/2,y/2)# instancio la imagen en el centro de la pantalla
+        self.x=x
+        self.y=y
+        #self.posactual=self.rect.y
         # self.rect.center=(0,0)# instancio la imagen en el centro de la pantalla
     def update(self, *args):
         #pygame.sprite.Sprite.update(self, *args)    
@@ -105,7 +107,7 @@ class Malvavisco(pygame.sprite.Sprite):
       
             
         if self.salto==False:
-            if self.rect.y!=self.posactual:self.rect.y +=5
+            #if self.rect.y!=self.posactual:self.rect.y +=5
             if self.derecha: # si esta mirando a la derecha
                 if self.idle==True:
                     self.image= pygame.transform.scale(self.listaidle[self.posidle],(self.alto,self.ancho))
@@ -128,29 +130,29 @@ class Malvavisco(pygame.sprite.Sprite):
                     if(self.posrun==36):self.posrun=0
                     if (not key[pygame.K_a]):self.run=False    
       
-        else:
+       # else:
             
-            if self.derecha: # Si salto y miro para la derecha
-                self.image=pygame.transform.scale(self.listajump[self.posjump],(self.alto,self.ancho))
-                self.posjump=self.posjump+1
+           # if self.derecha: # Si salto y miro para la derecha
+            #    self.image=pygame.transform.scale(self.listajump[self.posjump],(self.alto,self.ancho))
+             #   self.posjump=self.posjump+1
                 
-                if(self.posjump==21):
-                    self.posjump=0
+              #  if(self.posjump==21):
+               #     self.posjump=0
                   
-                if(self.rect.y>20):
-                    self.rect.y -=5
-                else:self.salto=False
+               # if(self.rect.y>20):
+                #    self.rect.y -=5
+                #else:self.salto=False
               
-            else: #Si salto y miro para la izquierda
-                self.image=pygame.transform.scale(self.listaIjump[self.posjump],(self.alto,self.ancho))
-                self.posjump=self.posjump+1
-                if(self.posjump==21): self.posjump=0
+           # else: #Si salto y miro para la izquierda
+            #    self.image=pygame.transform.scale(self.listaIjump[self.posjump],(self.alto,self.ancho))
+             #   self.posjump=self.posjump+1
+              #  if(self.posjump==21): self.posjump=0
                 
                    
                   
-                if(self.rect.y>20):
-                    self.rect.y -=5
-                else:self.salto=False 
+               # if(self.rect.y>20):
+                #    self.rect.y -=5
+                #else:self.salto=False 
         
     
             
