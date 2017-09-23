@@ -2,9 +2,9 @@
 import pygame
 import Malvavisco
 import Chef
-
+import Background
 #CONSTANTES
-WIDTH=500
+WIDTH=900
 HEIGHT=500
 FPS=60
 WHITE=(255,255,255)
@@ -12,8 +12,12 @@ BLACK=(0,0,0)
 
 
 spritesPrincipales = pygame.sprite.Group()
-malvavisco = Malvavisco.Malvavisco(900,800)
-chef = Chef.Chef(900, 800)
+background=Background.Background(0,0,900,500)
+malvavisco = Malvavisco.Malvavisco(0,-50000,100,100)
+chef = Chef.Chef(320, 120,300,300)
+
+
+spritesPrincipales.add(background)
 spritesPrincipales.add(malvavisco)
 spritesPrincipales.add(chef)
 
