@@ -2,18 +2,19 @@ import pygame
 
 class Chef(pygame.sprite.Sprite):
     
-    def __init__(self, x, y):
+    def __init__(self, x, y,alto,ancho):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
         self.idle = True
         self.animacionIdle = self.cargarAnimacionIdle()
-        self.alto = 500
-        self.ancho = 400
+        self.alto = alto
+        self.ancho = ancho
         self.posIdle = 0
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
         self.rect = self.image.get_rect()
-        self.rect.center=(x/2, y/2) # instancio la imagen en el centro de la pantalla
+        self.rect.x=x
+        self.rect.y=y
         self.posactual=self.rect.y
         self.inversa = False
         
