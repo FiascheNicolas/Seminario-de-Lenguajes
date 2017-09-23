@@ -15,9 +15,13 @@ BLACK=(0,0,0)
 
 
 all_sprites = pygame.sprite.Group()
-player=Malvavisco.Malvavisco()
+enemys= pygame.sprite.Group()
+
+player=Malvavisco.Malvavisco(900,800)
+
 
 all_sprites.add(player)
+
 
 pygame.init()
 pygame.mixer.init()
@@ -39,6 +43,11 @@ while running:
             running = False
     #Update
     all_sprites.update()
+    
+    
+    #its=pygame.sprite.spritecollide(player,enemys, False)
+   #if hits:
+    #   running=False
     #Draws
     screen.fill(BLACK)
     
