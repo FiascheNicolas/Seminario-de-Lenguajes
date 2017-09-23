@@ -57,7 +57,7 @@ class Malvavisco(pygame.sprite.Sprite):
         self.derecha=True
         self.salto=False
         self.limite=False
-        self.velocidad=10
+        self.velocidad=3
         self.alto=500
         self.ancho=400
         self.posrun=0
@@ -78,14 +78,14 @@ class Malvavisco(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center=(x/2,y/2)# instancio la imagen en el centro de la pantalla
         self.posactual=self.rect.y
-       # self.rect.center=(0,0)# instancio la imagen en el centro de la pantalla
+        # self.rect.center=(0,0)# instancio la imagen en el centro de la pantalla
     def update(self, *args):
         #pygame.sprite.Sprite.update(self, *args)    
         
         key=pygame.key.get_pressed() #detecto que tecla estoy presionando
         
-        if key[pygame.K_SPACE] and self.rect.y==self.posactual:
-           self.salto=True 
+        if key[pygame.K_SPACE]:
+            self.salto=True 
             
         
         if key[pygame.K_d]:
@@ -105,12 +105,12 @@ class Malvavisco(pygame.sprite.Sprite):
       
             
         if self.salto==False:
-            if self.rect.y!=self.posactual:self.rect.y +=20
+            if self.rect.y!=self.posactual:self.rect.y +=5
             if self.derecha: # si esta mirando a la derecha
                 if self.idle==True:
-                     self.image= pygame.transform.scale(self.listaidle[self.posidle],(self.alto,self.ancho))
-                     self.posidle=self.posidle+1
-                     if(self.posidle==41):self.posidle=0
+                    self.image= pygame.transform.scale(self.listaidle[self.posidle],(self.alto,self.ancho))
+                    self.posidle=self.posidle+1
+                    if(self.posidle==41):self.posidle=0
                 if self.run==True:
                     self.image=pygame.transform.scale(self.listarun[self.posrun],(self.alto,self.ancho))
                     self.posrun=self.posrun+1
@@ -138,7 +138,7 @@ class Malvavisco(pygame.sprite.Sprite):
                     self.posjump=0
                   
                 if(self.rect.y>20):
-                    self.rect.y -=20
+                    self.rect.y -=5
                 else:self.salto=False
               
             else: #Si salto y miro para la izquierda
@@ -149,7 +149,7 @@ class Malvavisco(pygame.sprite.Sprite):
                    
                   
                 if(self.rect.y>20):
-                    self.rect.y -=20
+                    self.rect.y -=5
                 else:self.salto=False 
         
     

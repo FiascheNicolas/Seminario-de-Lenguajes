@@ -1,26 +1,21 @@
 #13/09 Esqueleto de pygame
 import pygame
-import random
 import Malvavisco
+import Chef
 
-
+#CONSTANTES
 WIDTH=500
 HEIGHT=500
 FPS=60
-# definir colores
 WHITE=(255,255,255)
 BLACK=(0,0,0)
 
 
-
-
-all_sprites = pygame.sprite.Group()
-enemys= pygame.sprite.Group()
-
-player=Malvavisco.Malvavisco(900,800)
-
-
-all_sprites.add(player)
+spritesPrincipales = pygame.sprite.Group()
+malvavisco = Malvavisco.Malvavisco(900,800)
+chef = Chef.Chef(900, 800)
+spritesPrincipales.add(malvavisco)
+spritesPrincipales.add(chef)
 
 
 pygame.init()
@@ -42,20 +37,17 @@ while running:
         if event.type==pygame.QUIT:
             running = False
     #Update
-    all_sprites.update()
+    spritesPrincipales.update()
     
     
-    #its=pygame.sprite.spritecollide(player,enemys, False)
-   #if hits:
+    #its=pygame.sprite.spritecollide(malvavisco,enemys, False)
+    #if hits:
     #   running=False
     #Draws
     screen.fill(BLACK)
     
-    all_sprites.draw(screen)
+    spritesPrincipales.draw(screen)
     #despues de dibujar,flip the display
     pygame.display.flip()
  
-pygame.quit()   
-    
-    
-    
+pygame.quit()
