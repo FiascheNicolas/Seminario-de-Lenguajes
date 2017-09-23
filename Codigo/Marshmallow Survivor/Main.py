@@ -13,7 +13,7 @@ BLACK=(0,0,0)
 
 spritesPrincipales = pygame.sprite.Group()
 background=Background.Background(0,0,900,500)
-malvavisco = Malvavisco.Malvavisco(0,-50000,100,100)
+malvavisco = Malvavisco.Malvavisco(0,435,100,100)
 chef = Chef.Chef(320, 120,300,300)
 
 
