@@ -14,8 +14,8 @@ class Background(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x=x #Las posiciones x e y tienen que ser 0,0
         self.rect.y=y
-    def update(self, *args):
-        self.image = pygame.transform.scale(self.fondo, (self.alto, self.ancho))
+    #def update(self, *args):
+        #self.image = pygame.transform.scale(self.fondo, (self.alto, self.ancho))
         
         
             
