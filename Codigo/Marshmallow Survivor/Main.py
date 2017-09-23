@@ -1,8 +1,8 @@
-#13/09 Esqueleto de pygame
 import pygame
 import Malvavisco
 import Chef
 import Background
+
 #CONSTANTES
 WIDTH=900
 HEIGHT=500
