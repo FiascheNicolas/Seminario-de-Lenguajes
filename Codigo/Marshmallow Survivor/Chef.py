@@ -2,7 +2,7 @@ import pygame
 
 class Chef(pygame.sprite.Sprite):
     
-    def __init__(self, x, y,alto,ancho):
+    def __init__(self, x, y, alto, ancho):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
@@ -13,15 +13,14 @@ class Chef(pygame.sprite.Sprite):
         self.posIdle = 0
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
         self.rect = self.image.get_rect()
-        self.rect.x=x
-        self.rect.y=y
-        self.posactual=self.rect.y
+        self.rect.x = x
+        self.rect.y = y
         self.inversa = False
         
     def cargarAnimacionIdle(self):
         contador = 1
         listaAnimacionIdleChef = []
-        while contador !=32:
+        while contador != 32:
             listaAnimacionIdleChef.append(pygame.image.load("imagenes/AnimacionesChef/Idle/" + str(contador) + ".png"))
             contador += 1
             
