@@ -24,12 +24,14 @@ class Malvavisco(pygame.sprite.Sprite):
         self.derecha = True
         self.salto = False
         self.limite = False
+        
         self.velocidad = 3
         self.alto = alto
         self.ancho = ancho
         self.posRun = 0
         self.posIdle = 0
         self.posJump = 0
+        self.distanciaSalto=100
         
         self.animacionRun = self.cargarAnimacion(RUN, PATH_RUN)
         self.animacionRunInvertida = self.cargarAnimacion(RUN, PATH_RUN_INVERTIDA)
@@ -44,13 +46,13 @@ class Malvavisco(pygame.sprite.Sprite):
         self.rect.x=x
         self.rect.y=y
         #self.rect.center=(x/2,y/2)# instancio la imagen en el centro de la pantalla
-        #self.posactual=self.rect.y
+        self.posactual=self.rect.y
         #self.rect.center=(0,0)# instancio la imagen en el centro de la pantalla
         
     def update(self, *args):  
         key=pygame.key.get_pressed() #detecto que tecla estoy presionando
-        
-        if key[pygame.K_SPACE]:
+        print self.rect.y
+        if key[pygame.K_SPACE] and self.rect.y==self.posactual:
             self.salto = True 
             
         if key[pygame.K_d]:
@@ -63,8 +65,8 @@ class Malvavisco(pygame.sprite.Sprite):
             self.run=True
             self.rect.x -=self.velocidad
         
-        if not self.salto:
-            #if self.rect.y!=self.posactual:self.rect.y +=5
+        if not self.salto: #Si no estoy saltando
+            
             if self.derecha: # si esta mirando a la derecha
                 if self.idle:
                     self.actualizarIdle()
@@ -83,31 +85,44 @@ class Malvavisco(pygame.sprite.Sprite):
                     if (not key[pygame.K_a]):
                         self.run = False    
       
-       # else:
+        else: #Si no estoy saltando
             
-           # if self.derecha: # Si salto y miro para la derecha
-            #    self.image=pygame.transform.scale(self.listajump[self.posJump],(self.alto,self.ancho))
-             #   self.posJump=self.posJump+1
+            if self.derecha: # Si salto y miro para la derecha
+                self.actualizarJump()
+                if(self.rect.y>self.posactual-100) and self.limite==False:
+                    self.rect.y -=5
+                    
+                elif(self.rect.y!=self.posactual):
+                    self.limite=True
+                    self.rect.y += 5
+                    if(self.rect.y==self.posactual):
+                        self.limite=False
+                        self.salto=False
+                    
+                        
+                    
                 
-              #  if(self.posJump==21):
-               #     self.posJump=0
-                  
-               # if(self.rect.y>20):
-                #    self.rect.y -=5
-                #else:self.salto=False
+                
+                    
+                
               
-           # else: #Si salto y miro para la izquierda
-            #    self.image=pygame.transform.scale(self.listaIjump[self.posJump],(self.alto,self.ancho))
-             #   self.posJump=self.posJump+1
-              #  if(self.posJump==21): self.posJump=0
-                
-                   
-                  
-               # if(self.rect.y>20):
-                #    self.rect.y -=5
-                #else:self.salto=False 
+            else: #Si salto y miro para la izquierda
+                self.actualizarJumpInvertido()
+                if(self.rect.y>self.posactual-self.distanciaSalto) and self.limite==False:
+                    self.rect.y -=5
+                    
+                elif(self.rect.y!=self.posactual):
+                    self.limite=True
+                    self.rect.y += 5
+                    if(self.rect.y==self.posactual):
+                        self.limite=False
+                        self.salto=False
         
 
+  
+        
+                    
+        
     def actualizarIdle(self):
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
         self.posIdle += 1   
@@ -129,6 +144,18 @@ class Malvavisco(pygame.sprite.Sprite):
         self.posRun +=1
         if(self.posRun == RUN):
             self.posRun = 0
+    
+    def actualizarJump(self):
+        self.image=pygame.transform.scale(self.animacionJump[self.posJump],(self.alto,self.ancho))
+        self.posJump +=1
+        if (self.posJump== JUMP):
+            self.posJump=0
+    
+    def actualizarJumpInvertido(self):
+        self.image=pygame.transform.scale(self.animacionJumpInvertida[self.posJump],(self.alto,self.ancho))
+        self.posJump +=1
+        if(self.posJump==JUMP):
+            self.posJump=0
     def cargarAnimacion(self, cantidad, path):
         contador = 0
         listaAnimacion = []
