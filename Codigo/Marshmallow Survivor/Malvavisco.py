@@ -41,6 +41,8 @@ class Malvavisco(pygame.sprite.Sprite):
         
         self.image= pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))   
         self.rect = self.image.get_rect()
+        self.rect.x=x
+        self.rect.y=y
         #self.rect.center=(x/2,y/2)# instancio la imagen en el centro de la pantalla
         #self.posactual=self.rect.y
         #self.rect.center=(0,0)# instancio la imagen en el centro de la pantalla
