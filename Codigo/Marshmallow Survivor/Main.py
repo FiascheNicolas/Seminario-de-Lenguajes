@@ -6,17 +6,18 @@ import Dulce
 from random import randint
 
 #CONSTANTES
-WIDTH=900
-HEIGHT=500
+ALTO=1360
+ANCHO=768
 FPS=60
 
 pygame.init()
 pygame.mixer.init()
-screen = pygame.display.set_mode((1366, 768), pygame.FULLSCREEN)
+#screen = pygame.display.set_mode((1366, 768), pygame.FULLSCREEN)
+screen = pygame.display.set_mode((ALTO, ANCHO))
 pygame.display.set_caption("Marshmallow Survivor")
 clock = pygame.time.Clock()
 
-background = Background.Background(0, 0, 1366, 768)
+background = Background.Background(0, 0, ALTO, ANCHO)
 malvavisco = Malvavisco.Malvavisco(375, 550, 200, 200)
 chef = Chef.Chef(500, 0, 250, 250)
 spritesPrincipales = pygame.sprite.Group()
