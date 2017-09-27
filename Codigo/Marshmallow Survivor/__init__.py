@@ -3,8 +3,10 @@
 import random
 import pygame
 from pygame.locals import *
+import Nivel
 
-
+ALTO=1360
+ANCHO=768
 class Opcion:
 
     def __init__(self, fuente, titulo, x, y, paridad, funcion_asignada):
@@ -120,7 +122,9 @@ class Menu:
             opcion.imprimir(screen)
 
 def comenzar_nuevo_juego():
-    print " I want to play a game  °_°"
+    print "Boss jefe"
+    Nivel.iniciar(screen,ALTO,ANCHO)
+    salir_del_programa()
 
 def mostrar_opciones():
     print " Fruta."
@@ -145,12 +149,13 @@ if __name__ == '__main__':
         ]
 
     pygame.font.init()
-    screen = pygame.display.set_mode((800, 600))
+    screen = pygame.display.set_mode((ALTO, ANCHO))
     fondo = pygame.image.load("imagenes/Menu/fondo.png").convert()
     menu = Menu(opciones)
 
     while not salir:
-
+        print "Still running"
+ 
         for e in pygame.event.get():
             if e.type == QUIT:
                 salir = True
