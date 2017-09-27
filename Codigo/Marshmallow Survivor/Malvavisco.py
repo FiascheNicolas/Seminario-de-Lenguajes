@@ -58,7 +58,7 @@ class Malvavisco(pygame.sprite.Sprite):
         if key[pygame.K_d]:
             self.derecha = True
             self.run = True
-            self.rect.x += self.velocidad
+            self.rect.x += self.velocidad + 1
             
         if key[pygame.K_a]:
             self.derecha=False
@@ -128,6 +128,7 @@ class Malvavisco(pygame.sprite.Sprite):
         self.posIdle += 1   
         if(self.posIdle == (IDLE + 1)): 
             self.posIdle = 0
+            
     def actualizarIdleInvertida(self):
         self.image = pygame.transform.scale(self.animacionIdleInvertida[self.posIdle],(self.alto,self.ancho))
         self.posIdle +=1
@@ -139,6 +140,7 @@ class Malvavisco(pygame.sprite.Sprite):
         self.posRun += 1   
         if(self.posRun == RUN): 
             self.posRun = 0
+            
     def actualizarRunInvertida(self):
         self.image=pygame.transform.scale(self.animacionRunInvertida[self.posRun],(self.alto,self.ancho))
         self.posRun +=1
@@ -156,11 +158,12 @@ class Malvavisco(pygame.sprite.Sprite):
         self.posJump +=1
         if(self.posJump==JUMP):
             self.posJump=0
+            
     def cargarAnimacion(self, cantidad, path):
         contador = 0
         listaAnimacion = []
         while contador != cantidad + 1:
-            listaAnimacion.append(pygame.image.load(path + str(contador) + ".png"))
+            listaAnimacion.append(pygame.image.load(path + str(contador) + ".png").convert_alpha())
             contador += 1
         
         return listaAnimacion
