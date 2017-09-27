@@ -38,7 +38,7 @@ class Opcion:
 class Cursor:
 
     def __init__(self, x, y, dy):
-        self.image = pygame.image.load('cursor.png').convert_alpha()
+        self.image = pygame.image.load("imagenes/Menu/cursor.png").convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.y_inicial = y
@@ -62,7 +62,7 @@ class Menu:
     
     def __init__(self, opciones):
         self.opciones = []
-        fuente = pygame.font.Font('Bloodthirsty.ttf', 50)
+        fuente = pygame.font.Font("imagenes/Menu/Bloodthirsty.ttf", 50)
         x = 105
         y = 370
         paridad = 1
@@ -146,7 +146,7 @@ if __name__ == '__main__':
 
     pygame.font.init()
     screen = pygame.display.set_mode((800, 600))
-    fondo = pygame.image.load("fondo.png").convert()
+    fondo = pygame.image.load("imagenes/Menu/fondo.png").convert()
     menu = Menu(opciones)
 
     while not salir:
