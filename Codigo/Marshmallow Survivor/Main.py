@@ -35,9 +35,9 @@ spritesDulces = pygame.sprite.Group()
 while running:
     #Correr a la velocidad correcta
     
-    numeroRandom = randint(1, 7)
+    numeroRandom = randint(1, 20)
     
-    if numeroRandom > 6:
+    if numeroRandom > 19:
         nuevoDulce = Dulce.Dulce()
         spritesDulces.add(nuevoDulce)
         listaDulces.append(nuevoDulce)
@@ -48,12 +48,6 @@ while running:
         #chequear si se cierra la ventana
         if event.type==pygame.QUIT:
             running = False
-    
-    for sprite in spritesDulces:
-        
-        if sprite.y > 500:
-            spritesDulces.delete(sprite)
-    
     #Update
     #its=pygame.sprite.spritecollide(malvavisco,enemys, False)
     #if hits:

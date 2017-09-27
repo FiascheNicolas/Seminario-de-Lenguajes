@@ -21,3 +21,8 @@ class Dulce(pygame.sprite.Sprite):
     def update(self):
         self.image = pygame.transform.scale(self.path, (30, 30))
         self.rect.y += 3
+        self.die()
+        
+    def die(self):
+        if self.rect.y > 630:
+            self.kill()

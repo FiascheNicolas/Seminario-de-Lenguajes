@@ -21,7 +21,7 @@ class Chef(pygame.sprite.Sprite):
         contador = 1
         listaAnimacionIdleChef = []
         while contador != 32:
-            listaAnimacionIdleChef.append(pygame.image.load("imagenes/AnimacionesChef/Idle/" + str(contador) + ".png"))
+            listaAnimacionIdleChef.append(pygame.image.load("imagenes/AnimacionesChef/Idle/" + str(contador) + ".png").convert_alpha())
             contador += 1
             
         return listaAnimacionIdleChef
