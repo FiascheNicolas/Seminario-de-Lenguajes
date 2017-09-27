@@ -51,19 +51,23 @@ class Malvavisco(pygame.sprite.Sprite):
         
     def update(self, *args):  
         key=pygame.key.get_pressed() #detecto que tecla estoy presionando
-        print self.rect.y
+        
         if key[pygame.K_SPACE] and self.rect.y==self.posactual:
             self.salto = True 
             
         if key[pygame.K_d]:
             self.derecha = True
             self.run = True
-            self.rect.x += self.velocidad + 1
+            if(self.rect.x<1247):
+                self.rect.x += self.velocidad + 1
+             
             
         if key[pygame.K_a]:
             self.derecha=False
             self.run=True
-            self.rect.x -=self.velocidad
+            if(self.rect.x>-61):
+                self.rect.x -=self.velocidad
+            
         
         if not self.salto: #Si no estoy saltando
             
