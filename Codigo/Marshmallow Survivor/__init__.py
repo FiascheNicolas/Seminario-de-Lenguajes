@@ -157,8 +157,10 @@ if __name__ == '__main__':
         print "Still running"
  
         for e in pygame.event.get():
-            if e.type == QUIT:
-                salir = True
+            if e.type == pygame.KEYDOWN:
+                if e.key == pygame.K_ESCAPE:
+                     salir = True
+               
 
         screen.blit(fondo, (0, 0))
         menu.actualizar()
