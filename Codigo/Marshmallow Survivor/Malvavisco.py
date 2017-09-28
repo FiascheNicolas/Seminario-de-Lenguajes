@@ -11,6 +11,7 @@ PATH_IDLE_INVERTIDA = "imagenes/AnimacionesMalvavisco/IdleInvertido/"
 PATH_JUMP = "imagenes/AnimacionesMalvavisco/Jump/"
 PATH_JUMP_INVERTIDA = "imagenes/AnimacionesMalvavisco/JumpInvertido/"
 
+RED=(255,0,0)
 
 class Malvavisco(pygame.sprite.Sprite):
     
@@ -18,6 +19,7 @@ class Malvavisco(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
+        
         
         self.run = False
         self.idle = True
@@ -33,6 +35,8 @@ class Malvavisco(pygame.sprite.Sprite):
         self.posJump = 0
         self.distanciaSalto=100
         
+        
+        
         self.animacionRun = self.cargarAnimacion(RUN, PATH_RUN)
         self.animacionRunInvertida = self.cargarAnimacion(RUN, PATH_RUN_INVERTIDA)
         self.animacionIdle = self.cargarAnimacion(IDLE, PATH_IDLE)
@@ -43,6 +47,10 @@ class Malvavisco(pygame.sprite.Sprite):
         
         self.image= pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))   
         self.rect = self.image.get_rect()
+        
+        self.radius= int(self.rect.width/8)
+        pygame.draw.circle(self.image,RED,self.rect.center,self.radius)
+        
         self.rect.x=x
         self.rect.y=y
         #self.rect.center=(x/2,y/2)# instancio la imagen en el centro de la pantalla
@@ -52,6 +60,8 @@ class Malvavisco(pygame.sprite.Sprite):
     def update(self, *args):  
         key=pygame.key.get_pressed() #detecto que tecla estoy presionando
         
+        if key[pygame.K_ESCAPE]:
+            self.runningGame=False   
         if key[pygame.K_SPACE] and self.rect.y==self.posactual:
             self.salto = True 
             
