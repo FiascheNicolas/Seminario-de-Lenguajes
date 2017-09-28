@@ -7,6 +7,7 @@ from random import randint
 from pygame.constants import K_ESCAPE
 
 
+
 FPS=60
 
 def iniciar(screenMenu,ALTO,ANCHO):
@@ -16,9 +17,9 @@ def iniciar(screenMenu,ALTO,ANCHO):
     screen = screenMenu
     pygame.display.set_caption("Marshmellow Survivor")
     clock = pygame.time.Clock()
-    
+    running = True
     background=Background.Background(0,0,ALTO,ANCHO)
-    malvavisco = Malvavisco.Malvavisco(375,550,200,200)
+    malvavisco = Malvavisco.Malvavisco(375,550,200,200,running)
     chef = Chef.Chef(500,0,250,250)
     spritesPrincipales = pygame.sprite.Group()
     spritesPrincipales.add(malvavisco)
@@ -26,7 +27,7 @@ def iniciar(screenMenu,ALTO,ANCHO):
     spritesPrincipales.add(chef)
     spriteBackground.add(background)
     
-    running = True
+    
     listaDulces = []
     spritesDulces = pygame.sprite.Group()
     while running:
@@ -40,8 +41,11 @@ def iniciar(screenMenu,ALTO,ANCHO):
         
         for event in pygame.event.get():
            
-            if event.type==pygame.QUIT:
-                running = False
+            
+            if event.type==pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running=False
+                
     
         spriteBackground.draw(screen)
         spritesDulces.draw(screen)
