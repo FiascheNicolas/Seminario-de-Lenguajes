@@ -19,12 +19,12 @@ def iniciar(screenMenu,ALTO,ANCHO):
     clock = pygame.time.Clock()
     running = True
     background=Background.Background(0,0,ALTO,ANCHO)
-    malvavisco = Malvavisco.Malvavisco(375,550,200,200,running)
+    malvavisco = Malvavisco.Malvavisco(375,550,200,200)
     chef = Chef.Chef(500,0,250,250)
     spritesPrincipales = pygame.sprite.Group()
     spritesPrincipales.add(malvavisco)
     spriteBackground = pygame.sprite.Group()
-    spritesPrincipales.add(chef)
+   # spritesPrincipales.add(chef)
     spriteBackground.add(background)
     
     
@@ -47,6 +47,9 @@ def iniciar(screenMenu,ALTO,ANCHO):
                     running=False
                 
     
+        hits = pygame.sprite.spritecollide(malvavisco, spritesDulces,False,pygame.sprite.collide_circle)
+        if hits:
+            print "hola"
         spriteBackground.draw(screen)
         spritesDulces.draw(screen)
         spritesPrincipales.draw(screen)
