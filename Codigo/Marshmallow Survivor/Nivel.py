@@ -54,4 +54,4 @@ def iniciar(screenMenu,ALTO,ANCHO):
         spritesDulces.update()
         pygame.display.flip()
         
-pygame.quit()     
+   
