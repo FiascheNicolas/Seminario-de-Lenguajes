@@ -153,8 +153,8 @@ if __name__ == '__main__':
     fondo = pygame.image.load("imagenes/Menu/fondo.png").convert()
     menu = Menu(opciones)
     #Para iniciar el nivel automaticamente
-    Nivel.iniciar(screen,ALTO,ANCHO)
-    salir_del_programa()
+    #Nivel.iniciar(screen,ALTO,ANCHO)
+    #salir_del_programa()
     ######
     while not salir:
         print "Still running"
