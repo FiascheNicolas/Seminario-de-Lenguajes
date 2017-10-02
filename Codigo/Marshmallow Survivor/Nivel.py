@@ -3,162 +3,96 @@ import Malvavisco
 import Chef
 import Background
 import Dulce
-from random import randint
 import threading
+import time
+from random import randint
 
-
-fincarga=False
-#Colores
-RED=(255,0,0)
-BLACK=(0,0,0)
-
-#Instancias
-background=None
-malvavisco=None
-chef=None
-
-
-
-
-#Variables de tipo pygame
-spritesPrincipales = pygame.sprite.Group()
-spriteBackground = pygame.sprite.Group()
-clock = pygame.time.Clock()
-spritesDulces = pygame.sprite.Group()
-screen=None
-ALTO=None
-ANCHO=None
-
-
-FPS=60
-#Metodo para instancias los objetos del juego
-def cargaDatos():
-    background = Background.Background(0,0,1360,760)
-    malvavisco = Malvavisco.Malvavisco(375,550,200,200)
+class Nivel():
     
-    chef = Chef.Chef(500,0,250,250)
+    def __init__(self, screenMenu, alto, ancho):
+        self.threadFinalizado = False
+        self.spritesPrincipales = pygame.sprite.Group()
+        self.spriteBackground = pygame.sprite.Group()
+        self.spritesDulces = pygame.sprite.Group()
+        self.clock = pygame.time.Clock()
+        self.screen = screenMenu
+        self.alto = alto
+        self.ancho = ancho
+        self.fps = 60
+        self.colores = { "RED" : (255,0,0), "BLACK" : (0,0,0) }
+        self.iteradorParaTexto = 0
+        self.textoPantallaDeCarga = "Cargando"
     
-    spriteBackground.add(background)
-    spritesPrincipales.add(malvavisco)
-    spritesPrincipales.add(chef)
-    global fincarga
-    fincarga=True
-   
-
-#Metodo para dibujar Texto sobre pantalla
-def draw_text(surf,text,size,x,y):
-    font_name = pygame.font.match_font('arial')
-    font = pygame.font.Font(font_name,size)
-    text_surface=font.render(text,True,RED)
-    text_rect=text_surface.get_rect()
-    text_rect.midtop=(x,y)
-    surf.blit(text_surface,text_rect)
-    
-#Metodo para cargar todas las instancias del juego     
-def cargando():
-    
-    running=True
-    global fincarga
-    global screen
-    global ALTO
-    global ANCHO
-    fincarga=False
-    clock = pygame.time.Clock()
-    clock.tick(60)
-    i=0
-    textCargando="Cargando"
-    #CREO HILO PARA LA CARGA DE SPRITES
-    hiloCargando = threading.Thread(target=cargaDatos)
-    hiloCargando.start()
-    ####
-    while running:
-       
-        screen.fill(BLACK)
+    def iniciar(self):
+        self.pantallaDeCarga()
+        pygame.init()
+        pygame.mixer.init()
+        pygame.display.set_caption("Marshmellow Survivor")
+        ejecutandoNivel = True
         
-        if(i==100):
-            textCargando="Cargando."
-        if(i==300):
-            textCargando="Cargando.."
-        if(i==500):
-            textCargando="Cargando..."
-        if(i==600):
-            i=0
-        draw_text(screen,textCargando, 18, ALTO/2,ANCHO/2)
-        
-        i+=1
-        
-        if(fincarga==True):
-            running=False
-        pygame.display.flip()
-        
-        
-         
-         
-        
-         
-        
-        
-       
-    
-    
-        
-def iniciar(screenMenu,alto,ancho):
-    
-    
-    global screen
-    screen = screenMenu
-    global ALTO
-    ALTO=alto
-    global ANCHO
-    ANCHO=ancho
-    global clock
-    global malvavisco
-    cargando()
-    
-    pygame.init()
-    pygame.mixer.init()
-    
-    pygame.display.set_caption("Marshmellow Survivor")
-    clock = pygame.time.Clock()
-    running = True
-    
-    
-    
-    
-        
-   
-    
-    
-    
-    listaDulces = []
-    
-    while running:
-        
-        numeroRandom = randint(1, 20)
-        if numeroRandom > 19:
-            nuevoDulce = Dulce.Dulce()
-            spritesDulces.add(nuevoDulce)
-            listaDulces.append(nuevoDulce)
-        clock.tick(FPS)
-        
-        for event in pygame.event.get():
-           
+        listaDulces = []
+        while ejecutandoNivel:
+            numeroRandom = randint(1, 20)
+            if numeroRandom > 19:
+                nuevoDulce = Dulce.Dulce()
+                self.spritesDulces.add(nuevoDulce)
+                listaDulces.append(nuevoDulce)
             
-            if event.type==pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    running=False
+            self.clock.tick(self.fps)
                 
-    
-        #hits = pygame.sprite.spritecollide(malvavisco, spritesDulces,False,pygame.sprite.collide_circle)
-        #if hits:
-           # print"BUendia"
-          
-            
-            
-        spriteBackground.draw(screen)
-        spritesDulces.draw(screen)
-        spritesPrincipales.draw(screen)
-        spritesPrincipales.update()
-        spritesDulces.update()
-        pygame.display.flip()
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        ejecutandoNivel = False
+                        
+            #hits = pygame.sprite.spritecollide(malvavisco, spritesDulces,False,pygame.sprite.collide_circle)
+            #if hits:
+                #print "Buen dia"
+                
+            self.spriteBackground.draw(self.screen)
+            self.spritesDulces.draw(self.screen)
+            self.spritesPrincipales.draw(self.screen)
+            self.spritesPrincipales.update()
+            self.spritesDulces.update()
+            pygame.display.flip()
         
+    def cargaDeDatos(self):
+        self.malvavisco = Malvavisco.Malvavisco(375,550,200,200)
+        self.chef = Chef.Chef(500,0,250,250)
+        self.background = Background.Background(0,0,1360,760)
+        
+        self.spritesPrincipales.add(self.malvavisco)
+        self.spritesPrincipales.add(self.chef)
+        self.spriteBackground.add(self.background)
+        
+        self.threadFinalizado = True
+        
+    def drawText(self, surf, text, size, x, y):
+            font_name = pygame.font.match_font('arial')
+            font = pygame.font.Font(font_name,size)
+            text_surface = font.render(text, True, self.colores["RED"])
+            text_rect = text_surface.get_rect()
+            text_rect.midtop = (x,y)
+            surf.blit(text_surface,text_rect)
+            
+    def pantallaDeCarga(self):
+        self.clock.tick(60)
+        threadDeCarga = threading.Thread(target=self.cargaDeDatos)
+        threadDeCarga.start()
+        
+        while not self.threadFinalizado:
+            self.screen.fill(self.colores["BLACK"])
+            self.actualizarCargando()
+            self.drawText(self.screen , self.textoPantallaDeCarga, 18, self.alto/2, self.ancho/2)
+            pygame.display.flip()
+            time.sleep(1.5)
+        
+    def actualizarCargando(self):
+        self.textoPantallaDeCarga = self.textoPantallaDeCarga + "."
+        
+        if (self.iteradorParaTexto > 2):
+            self.textoPantallaDeCarga = "Cargando"
+            self.iteradorParaTexto = 0
+        
+        self.iteradorParaTexto += 1
+
