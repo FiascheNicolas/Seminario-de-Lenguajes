@@ -22,6 +22,7 @@ class Fireball(pygame.sprite.Sprite):
         self.inversa = False
         # Distancia entre las posiciones X y Y, y se saca la recta que une los 2 puntos
         self.dx, self.dy = posMalvaviscoX - self.rect.x , posMalvaviscoY - self.rect.y
+        
         self.dist = math.hypot(self.dx, self.dy)      
         self.dx, self.dy = self.dx / self.dist, self.dy / self.dist               
         self.velocidad = 5

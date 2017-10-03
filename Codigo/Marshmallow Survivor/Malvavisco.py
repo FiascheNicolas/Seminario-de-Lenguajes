@@ -12,7 +12,7 @@ PATH_JUMP = "imagenes/AnimacionesMalvavisco/Jump/"
 PATH_JUMP_INVERTIDA = "imagenes/AnimacionesMalvavisco/JumpInvertido/"
 
 RED=(255,0,0)
-
+pygame.mixer.init()
 class Malvavisco(pygame.sprite.Sprite):
     
     def __init__(self, x, y, alto, ancho):
