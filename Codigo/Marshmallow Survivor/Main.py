@@ -21,7 +21,7 @@ screen = pygame.display.set_mode((ALTO, ANCHO))
 pygame.display.set_caption("Marshmallow Survivor")
 clock = pygame.time.Clock()
 pygame.mixer.music.load("Sonidos/Alone.mp3")
-
+nRandom = 0
 background = Background.Background(0, 0, ALTO, ANCHO)
 malvavisco = Malvavisco.Malvavisco(375, 550, 200, 200)
 chef = Chef.Chef(500, 0, 250, 250)
@@ -51,8 +51,9 @@ while running:
         spritesDulces.add(nuevoDulce)
         listaDulces.append(nuevoDulce)
         
-    nRandom = randint(1,200)
-    if nRandom > 199:
+    nRandom += 1
+    if nRandom == 120:
+        nRandom = 0
         fireball = Fireball.Fireball(500, 0, 200, 200,malvavisco.rect.x,malvavisco.rect.y)
         spriteFireball.add(fireball)
         
