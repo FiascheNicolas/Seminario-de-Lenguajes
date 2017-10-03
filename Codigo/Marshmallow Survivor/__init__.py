@@ -123,7 +123,8 @@ class Menu:
 
 def comenzar_nuevo_juego():
     print "Boss jefe"
-    Nivel.iniciar(screen,ALTO,ANCHO)
+    nivel = Nivel.Nivel(screen, ALTO, ANCHO)
+    nivel.iniciar()
     salir_del_programa()
 
 def mostrar_opciones():
@@ -152,14 +153,17 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((ALTO, ANCHO))
     fondo = pygame.image.load("imagenes/Menu/fondo.png").convert()
     menu = Menu(opciones)
-
+    #Para iniciar el nivel automaticamente
+    #Nivel.iniciar(screen,ALTO,ANCHO)
+    #salir_del_programa()
+    ######
     while not salir:
         print "Still running"
  
         for e in pygame.event.get():
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_ESCAPE:
-                     salir = True
+                    salir = True
                
 
         screen.blit(fondo, (0, 0))
