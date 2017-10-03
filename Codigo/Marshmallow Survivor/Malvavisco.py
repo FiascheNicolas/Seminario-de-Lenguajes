@@ -44,6 +44,7 @@ class Malvavisco(pygame.sprite.Sprite):
         self.animacionJump = self.cargarAnimacion(JUMP, PATH_JUMP)
         self.animacionJumpInvertida = self.cargarAnimacion(JUMP, PATH_JUMP_INVERTIDA)
         
+        self.sonidoSalto = pygame.mixer.Sound("Sonidos/Salto.ogg")
         
         self.image= pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))   
         self.rect = self.image.get_rect()
@@ -64,7 +65,7 @@ class Malvavisco(pygame.sprite.Sprite):
             self.runningGame=False   
         if key[pygame.K_SPACE] and self.rect.y==self.posactual:
             self.salto = True 
-            
+            self.sonidoSalto.play()
         if key[pygame.K_d]:
             self.derecha = True
             self.run = True
