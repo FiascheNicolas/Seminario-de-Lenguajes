@@ -10,6 +10,9 @@ PATH_IDLE = "imagenes/AnimacionesMalvavisco/Idle/"
 PATH_IDLE_INVERTIDA = "imagenes/AnimacionesMalvavisco/IdleInvertido/"
 PATH_JUMP = "imagenes/AnimacionesMalvavisco/Jump/"
 PATH_JUMP_INVERTIDA = "imagenes/AnimacionesMalvavisco/JumpInvertido/"
+PATH_JUMP_DOWN = "imagenes/AnimacionesMalvavisco/JumpDown/"
+PATH_JUMP_DOWN_INVERTIDA = "imagenes/AnimacionesMalvavisco/JumpDownInvertido/"
+
 
 RED=(255,0,0)
 pygame.mixer.init()
@@ -43,6 +46,8 @@ class Malvavisco(pygame.sprite.Sprite):
         self.animacionIdleInvertida = self.cargarAnimacion(IDLE, PATH_IDLE_INVERTIDA)
         self.animacionJump = self.cargarAnimacion(JUMP, PATH_JUMP)
         self.animacionJumpInvertida = self.cargarAnimacion(JUMP, PATH_JUMP_INVERTIDA)
+        self.animacionJumpDown = self.cargarAnimacion(JUMP,PATH_JUMP_DOWN)
+        self.animacionJumpDownInvertida = self.cargarAnimacion(JUMP,PATH_JUMP_DOWN_INVERTIDA)
         
         self.sonidoSalto = pygame.mixer.Sound("Sonidos/Salto.ogg")
         
@@ -65,7 +70,7 @@ class Malvavisco(pygame.sprite.Sprite):
             self.runningGame=False   
         if key[pygame.K_SPACE] and self.rect.y==self.posactual:
             self.salto = True 
-            self.sonidoSalto.play()
+            #self.sonidoSalto.play()
         if key[pygame.K_d]:
             self.derecha = True
             self.run = True
@@ -100,16 +105,18 @@ class Malvavisco(pygame.sprite.Sprite):
                     if (not key[pygame.K_a]):
                         self.run = False    
       
-        else: #Si no estoy saltando
+        else: #Si estoy saltando
             
             if self.derecha: # Si salto y miro para la derecha
-                self.actualizarJump()
+                
                 if(self.rect.y>self.posactual-100) and self.limite==False:
                     self.rect.y -=5
+                    self.actualizarJump()
                     
                 elif(self.rect.y!=self.posactual):
                     self.limite=True
                     self.rect.y += 5
+                    self.actualizarJumpDown()
                     if(self.rect.y==self.posactual):
                         self.limite=False
                         self.salto=False
@@ -122,13 +129,15 @@ class Malvavisco(pygame.sprite.Sprite):
                 
               
             else: #Si salto y miro para la izquierda
-                self.actualizarJumpInvertido()
+                
                 if(self.rect.y>self.posactual-self.distanciaSalto) and self.limite==False:
                     self.rect.y -=5
+                    self.actualizarJumpInvertido()
                     
                 elif(self.rect.y!=self.posactual):
                     self.limite=True
                     self.rect.y += 5
+                    self.actualizarJumpDownInvertido()
                     if(self.rect.y==self.posactual):
                         self.limite=False
                         self.salto=False
@@ -138,6 +147,9 @@ class Malvavisco(pygame.sprite.Sprite):
         
                     
         
+    
+    
+    
     def actualizarIdle(self):
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
         self.posIdle += 1   
@@ -174,6 +186,19 @@ class Malvavisco(pygame.sprite.Sprite):
         if(self.posJump==JUMP):
             self.posJump=0
             
+    
+    def actualizarJumpDown(self):
+        self.image=pygame.transform.scale(self.animacionJumpDown[self.posJump],(self.alto,self.ancho))
+        self.posJump +=1
+        if(self.posJump==JUMP):
+            self.posJump=0
+    
+    def actualizarJumpDownInvertido(self):
+        self.image=pygame.transform.scale(self.animacionJumpDownInvertida[self.posJump],(self.alto,self.ancho))
+        self.posJump +=1
+        if(self.posJump==JUMP):
+            self.posJump=0
+    
     def cargarAnimacion(self, cantidad, path):
         contador = 0
         listaAnimacion = []
