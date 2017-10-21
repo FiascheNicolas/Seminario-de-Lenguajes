@@ -68,6 +68,8 @@ class Menu:
         x = 105
         y = 370
         paridad = 1
+        self.sonido = pygame.mixer.Sound("Sonidos/musicaMenu.wav")
+        self.sonido.play(50)
 
         self.cursor = Cursor(x - 30, y, 50)
 
@@ -87,6 +89,7 @@ class Menu:
         """Altera el valor de 'self.seleccionado' con los direccionales."""
 
         k = pygame.key.get_pressed()
+       
 
         if not self.mantiene_pulsado:
             if k[K_UP]:
@@ -153,12 +156,13 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((ALTO, ANCHO))
     fondo = pygame.image.load("imagenes/Menu/fondo.png").convert()
     menu = Menu(opciones)
+    
     #Para iniciar el nivel automaticamente
     #Nivel.iniciar(screen,ALTO,ANCHO)
     #salir_del_programa()
     ######
     while not salir:
-        print "Still running"
+        
  
         for e in pygame.event.get():
             if e.type == pygame.KEYDOWN:
