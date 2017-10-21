@@ -2,7 +2,7 @@ import pygame
 
 #CONSTANTES
 RUN = 36
-IDLE = 40
+IDLE = 39
 JUMP = 20
 PATH_RUN = "imagenes/AnimacionesMalvavisco/Run/"
 PATH_RUN_INVERTIDA = "imagenes/AnimacionesMalvavisco/RunInvertido/"
