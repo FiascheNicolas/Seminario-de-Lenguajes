@@ -7,6 +7,8 @@ import Nivel
 
 ALTO=1360
 ANCHO=768
+sonido = pygame.mixer.Sound("Sonidos/musicaMenu.wav")
+     
 class Opcion:
 
     def __init__(self, fuente, titulo, x, y, paridad, funcion_asignada):
@@ -68,8 +70,7 @@ class Menu:
         x = 105
         y = 370
         paridad = 1
-        self.sonido = pygame.mixer.Sound("Sonidos/musicaMenu.wav")
-        self.sonido.play(50)
+        
 
         self.cursor = Cursor(x - 30, y, 50)
 
@@ -126,6 +127,8 @@ class Menu:
 
 def comenzar_nuevo_juego():
     print "Boss jefe"
+    global sonido
+    sonido.stop()
     nivel = Nivel.Nivel(screen, ALTO, ANCHO)
     nivel.iniciar()
     salir_del_programa()
@@ -156,6 +159,8 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((ALTO, ANCHO))
     fondo = pygame.image.load("imagenes/Menu/fondo.png").convert()
     menu = Menu(opciones)
+    global sonido
+    sonido.play(10)
     
     #Para iniciar el nivel automaticamente
     #Nivel.iniciar(screen,ALTO,ANCHO)
