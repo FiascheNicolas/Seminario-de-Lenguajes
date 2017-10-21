@@ -6,6 +6,8 @@ import Dulce
 import threading
 import time
 from random import randint
+import Fireball
+
 
 class Nivel():
     
@@ -57,10 +59,10 @@ class Nivel():
             pygame.display.flip()
         
     def cargaDeDatos(self):
-        self.malvavisco = Malvavisco.Malvavisco(375,550,200,200)
+        self.malvavisco = Malvavisco.Malvavisco(375,550,150,150)
         self.chef = Chef.Chef(500,0,250,250)
         self.background = Background.Background(0,0,1360,760)
-        
+      
         self.spritesPrincipales.add(self.malvavisco)
         self.spritesPrincipales.add(self.chef)
         self.spriteBackground.add(self.background)

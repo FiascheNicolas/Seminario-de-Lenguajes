@@ -156,8 +156,8 @@ if __name__ == '__main__':
         ]
 
     pygame.font.init()
-    screen = pygame.display.set_mode((ALTO, ANCHO))
-    fondo = pygame.image.load("imagenes/Menu/fondo.png").convert()
+    screen = pygame.display.set_mode((ALTO, ANCHO),pygame.FULLSCREEN)
+    fondo = pygame.image.load("imagenes/Menu/fondo 2.0.png").convert()
     menu = Menu(opciones)
     global sonido
     sonido.play(10)
