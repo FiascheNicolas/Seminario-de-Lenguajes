@@ -7,6 +7,8 @@ import Nivel
 
 ALTO=1360
 ANCHO=768
+sonido = pygame.mixer.Sound("Sonidos/musicaMenu.wav")
+     
 class Opcion:
 
     def __init__(self, fuente, titulo, x, y, paridad, funcion_asignada):
@@ -68,6 +70,7 @@ class Menu:
         x = 105
         y = 370
         paridad = 1
+        
 
         self.cursor = Cursor(x - 30, y, 50)
 
@@ -87,6 +90,7 @@ class Menu:
         """Altera el valor de 'self.seleccionado' con los direccionales."""
 
         k = pygame.key.get_pressed()
+       
 
         if not self.mantiene_pulsado:
             if k[K_UP]:
@@ -123,6 +127,8 @@ class Menu:
 
 def comenzar_nuevo_juego():
     print "Boss jefe"
+    global sonido
+    sonido.stop()
     nivel = Nivel.Nivel(screen, ALTO, ANCHO)
     nivel.iniciar()
     salir_del_programa()
@@ -150,15 +156,18 @@ if __name__ == '__main__':
         ]
 
     pygame.font.init()
-    screen = pygame.display.set_mode((ALTO, ANCHO))
-    fondo = pygame.image.load("imagenes/Menu/fondo.png").convert()
+    screen = pygame.display.set_mode((ALTO, ANCHO),pygame.FULLSCREEN)
+    fondo = pygame.image.load("imagenes/Menu/fondo 2.0.png").convert()
     menu = Menu(opciones)
+    global sonido
+    sonido.play(10)
+    
     #Para iniciar el nivel automaticamente
     #Nivel.iniciar(screen,ALTO,ANCHO)
     #salir_del_programa()
     ######
     while not salir:
-        print "Still running"
+        
  
         for e in pygame.event.get():
             if e.type == pygame.KEYDOWN:
