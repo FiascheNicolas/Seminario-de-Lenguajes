@@ -43,21 +43,21 @@ pygame.mixer.music.play(-1)
 
 while running:
     #Correr a la velocidad correcta
-    
+
     numeroRandom = randint(1, 20)
-    
+
     if numeroRandom > 19:
         nuevoDulce = Dulce.Dulce()
         spritesDulces.add(nuevoDulce)
         listaDulces.append(nuevoDulce)
-        
+
     nRandom += 1
     if nRandom == 120:
         nRandom = 0
         fireball = Fireball.Fireball(500, 0, 200, 200,malvavisco.rect.x,malvavisco.rect.y)
         spriteFireball.add(fireball)
-        
-    
+
+
     clock.tick(FPS)
     #Eventos
     for event in pygame.event.get():
@@ -75,9 +75,9 @@ while running:
     spritesPrincipales.draw(screen)
     spriteFireball.draw(screen)
     spritesPrincipales.update()
-    spritesDulces.update()    
+    spritesDulces.update()
     spriteFireball.update()
     #despues de dibujar,flip the display
     pygame.display.flip()
- 
+
 pygame.quit()
