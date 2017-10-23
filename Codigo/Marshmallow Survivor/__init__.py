@@ -8,7 +8,7 @@ import Nivel
 ALTO=1360
 ANCHO=768
 sonido = pygame.mixer.Sound("Sonidos/musicaMenu.wav")
-     
+
 class Opcion:
 
     def __init__(self, fuente, titulo, x, y, paridad, funcion_asignada):
@@ -63,14 +63,14 @@ class Cursor:
 
 class Menu:
     "Representa un menú con opciones para un juego"
-    
+
     def __init__(self, opciones):
         self.opciones = []
         fuente = pygame.font.Font("imagenes/Menu/Bloodthirsty.ttf", 50)
         x = 105
         y = 370
         paridad = 1
-        
+
 
         self.cursor = Cursor(x - 30, y, 50)
 
@@ -90,7 +90,7 @@ class Menu:
         """Altera el valor de 'self.seleccionado' con los direccionales."""
 
         k = pygame.key.get_pressed()
-       
+
 
         if not self.mantiene_pulsado:
             if k[K_UP]:
@@ -106,14 +106,14 @@ class Menu:
             self.seleccionado = 0
         elif self.seleccionado > self.total - 1:
             self.seleccionado = self.total - 1
-        
+
         self.cursor.seleccionar(self.seleccionado)
 
         # indica si el usuario mantiene pulsada alguna tecla.
         self.mantiene_pulsado = k[K_UP] or k[K_DOWN] or k[K_RETURN]
 
         self.cursor.actualizar()
-     
+
         for o in self.opciones:
             o.actualizar()
 
@@ -146,7 +146,7 @@ def salir_del_programa():
 
 
 if __name__ == '__main__':
-    
+
     salir = False
     opciones = [
         ("Play", comenzar_nuevo_juego),
@@ -161,19 +161,19 @@ if __name__ == '__main__':
     menu = Menu(opciones)
     global sonido
     sonido.play(10)
-    
+
     #Para iniciar el nivel automaticamente
     #Nivel.iniciar(screen,ALTO,ANCHO)
     #salir_del_programa()
     ######
     while not salir:
-        
- 
+
+
         for e in pygame.event.get():
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_ESCAPE:
                     salir = True
-               
+
 
         screen.blit(fondo, (0, 0))
         menu.actualizar()
