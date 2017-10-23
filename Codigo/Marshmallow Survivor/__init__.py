@@ -134,7 +134,7 @@ def comenzar_nuevo_juego():
     salir_del_programa()
 
 def mostrar_opciones():
-    print " Fruta."
+    print " Instrucciones."
 
 def creditos():
     print " Pirulin."
@@ -150,7 +150,7 @@ if __name__ == '__main__':
     salir = False
     opciones = [
         ("Play", comenzar_nuevo_juego),
-        ("Options", mostrar_opciones),
+        ("Instructions", mostrar_opciones),
         ("Credits", creditos),
         ("Exit", salir_del_programa)
         ]
