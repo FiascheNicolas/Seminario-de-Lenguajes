@@ -20,7 +20,7 @@ class Nivel():
         self.screen = screenMenu
         self.alto = alto
         self.ancho = ancho
-        self.fps = 30
+        self.fps = 60
         self.colores = { "RED" : (255,0,0), "BLACK" : (0,0,0) }
         self.iteradorParaTexto = 0
         self.textoPantallaDeCarga = "Cargando"
