@@ -58,7 +58,7 @@ class Fireball(pygame.sprite.Sprite):
 
         while(contador<=9):
             image = pygame.image.load("imagenes/Fireball/" + str(contador) + ".png").convert_alpha()
-            #
+
             dx = posMalvaviscoX - x
             dy = posMalvaviscoY - y
             rads = atan2(-dy,dx)
