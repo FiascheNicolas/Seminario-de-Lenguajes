@@ -16,6 +16,7 @@ class Nivel():
         self.spritesPrincipales = pygame.sprite.Group()
         self.spriteBackground = pygame.sprite.Group()
         self.spritesDulces = pygame.sprite.Group()
+        self.spritesFireball = pygame.sprite.Group()
         self.clock = pygame.time.Clock()
         self.screen = screenMenu
         self.alto = alto
@@ -24,21 +25,32 @@ class Nivel():
         self.colores = { "RED" : (255,0,0), "BLACK" : (0,0,0) }
         self.iteradorParaTexto = 0
         self.textoPantallaDeCarga = "Cargando"
+        self.cont = 0
+        self.sonidoColisionFireball = pygame.mixer.Sound("Sonidos/colisionFireball.ogg")
 
     def iniciar(self):
+
         self.pantallaDeCarga()
         pygame.init()
         pygame.mixer.init()
         pygame.display.set_caption("Marshmellow Survivor")
         ejecutandoNivel = True
-
+        pygame.mixer.music.load("Sonidos/Alone.mp3")
+        pygame.mixer.music.play(-1)
         listaDulces = []
         while ejecutandoNivel:
+
             numeroRandom = randint(1, 20)
             if numeroRandom > 19:
                 nuevoDulce = Dulce.Dulce()
                 self.spritesDulces.add(nuevoDulce)
                 listaDulces.append(nuevoDulce)
+
+            self.cont += 1
+            if self.cont == 120:
+                self.cont = 0
+                fireball = Fireball.Fireball(500, 0, 200, 200,self.malvavisco.rect.x,self.malvavisco.rect.y)
+                self.spritesFireball.add(fireball)
 
             self.clock.tick(self.fps)
 
@@ -50,19 +62,26 @@ class Nivel():
             #hits = pygame.sprite.spritecollide(malvavisco, spritesDulces,False,pygame.sprite.collide_circle)
             #if hits:
                 #print "Buen dia"
+            colisionFireball = pygame.sprite.spritecollide(self.malvavisco,self.spritesFireball,True)
+            if colisionFireball:
+                self.sonidoColisionFireball.play()
+
 
             self.spriteBackground.draw(self.screen)
             self.spritesDulces.draw(self.screen)
             self.spritesPrincipales.draw(self.screen)
+            self.spritesFireball.draw(self.screen)
             self.spritesPrincipales.update()
             self.spritesDulces.update()
+            self.spritesFireball.update()
             pygame.display.flip()
+
+
 
     def cargaDeDatos(self):
         self.malvavisco = Malvavisco.Malvavisco(375,550,150,150)
         self.chef = Chef.Chef(500,0,250,250)
         self.background = Background.Background(0,0,1360,760)
-
         self.spritesPrincipales.add(self.malvavisco)
         self.spritesPrincipales.add(self.chef)
         self.spriteBackground.add(self.background)
@@ -97,3 +116,4 @@ class Nivel():
             self.iteradorParaTexto = 0
 
         self.iteradorParaTexto += 1
+
