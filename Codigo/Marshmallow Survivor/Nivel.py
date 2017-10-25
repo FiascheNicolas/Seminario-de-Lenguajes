@@ -20,7 +20,7 @@ class Nivel():
         self.screen = screenMenu
         self.alto = alto
         self.ancho = ancho
-        self.fps = 60
+        self.fps = 30
         self.colores = { "RED" : (255,0,0), "BLACK" : (0,0,0) }
         self.iteradorParaTexto = 0
         self.textoPantallaDeCarga = "Cargando"
@@ -34,11 +34,11 @@ class Nivel():
         
         listaDulces = []
         while ejecutandoNivel:
-            numeroRandom = randint(1, 20)
-            if numeroRandom > 19:
-                nuevoDulce = Dulce.Dulce()
-                self.spritesDulces.add(nuevoDulce)
-                listaDulces.append(nuevoDulce)
+            #numeroRandom = randint(1, 20)
+            #if numeroRandom > 19:
+             #   nuevoDulce = Dulce.Dulce()
+              #  self.spritesDulces.add(nuevoDulce)
+               # listaDulces.append(nuevoDulce)
             
             self.clock.tick(self.fps)
                 
@@ -60,16 +60,24 @@ class Nivel():
         
     def cargaDeDatos(self):
         self.malvavisco = Malvavisco.Malvavisco(375,550,150,150)
+        
+        self.spritesPrincipales.add(self.malvavisco)
         self.chef = Chef.Chef(500,0,250,250)
+        self.spritesPrincipales.add(self.chef)
+        
         self.background = Background.Background(0,0,1360,760)
       
-        self.spritesPrincipales.add(self.malvavisco)
-        self.spritesPrincipales.add(self.chef)
+        
+       
         self.spriteBackground.add(self.background)
         
         self.threadFinalizado = True
         
     def drawText(self, surf, text, size, x, y):
+        
+        
+        
+        
             font_name = pygame.font.match_font('arial')
             font = pygame.font.Font(font_name,size)
             text_surface = font.render(text, True, self.colores["RED"])
