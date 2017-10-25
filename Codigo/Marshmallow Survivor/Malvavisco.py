@@ -1,10 +1,12 @@
 import pygame
 
 #CONSTANTES
-RUN = 36
-IDLE = 39
-JUMP = 20
-ROCK = 24
+RUN = 16
+
+
+IDLE = 19
+JUMP = 10
+ROCK = 12
 PATH_RUN = "imagenes/AnimacionesMalvavisco/Run/"
 PATH_RUN_INVERTIDA = "imagenes/AnimacionesMalvavisco/RunInvertido/"
 PATH_IDLE = "imagenes/AnimacionesMalvavisco/Idle/"
@@ -35,9 +37,9 @@ class Malvavisco(pygame.sprite.Sprite):
         self.derecha = True
         self.salto = False
         self.limite = False
-        self.rock = True
+        self.rock = False
         
-        self.velocidad = 3
+        self.velocidad = 5
         self.alto = alto
         self.ancho = ancho
         self.posRun = 0
@@ -193,8 +195,9 @@ class Malvavisco(pygame.sprite.Sprite):
             self.posIdle = 0
     
     def actualizarIdleRock(self):
-        self.image = pygame.transform.scale(self.animacionIdleRock[self.posIdle], (self.alto, self.ancho))
-        self.posIdle += 1   
+        self.image = pygame.transform.scale(self.animacionIdleRock[self.posIdle], (self.alto, self.ancho),(0,0,20,41))
+        self.image = (0,0,20,41)
+           
         if(self.posIdle == (IDLE + 1)): 
             self.posIdle = 0
     
@@ -273,6 +276,7 @@ class Malvavisco(pygame.sprite.Sprite):
         listaAnimacion = []
         while contador != cantidad + 1:
             listaAnimacion.append(pygame.image.load(path + str(contador) + ".png").convert_alpha())
+            
             contador += 1
         
         return listaAnimacion
