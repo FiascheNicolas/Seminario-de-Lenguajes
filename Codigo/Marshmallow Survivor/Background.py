@@ -1,7 +1,8 @@
+#!/usr/bin/env python
 import pygame
 
 class Background(pygame.sprite.Sprite):
-    
+
     def __init__(self, x, y, alto, ancho):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
