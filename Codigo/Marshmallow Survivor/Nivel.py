@@ -21,7 +21,7 @@ class Nivel():
         self.screen = screenMenu
         self.alto = alto
         self.ancho = ancho
-        self.fps = 60
+        self.fps = 30
         self.colores = { "RED" : (255,0,0), "BLACK" : (0,0,0) }
         self.iteradorParaTexto = 0
         self.textoPantallaDeCarga = "Cargando"
@@ -39,6 +39,7 @@ class Nivel():
         pygame.mixer.music.play(-1)
         listaDulces = []
         while ejecutandoNivel:
+<<<<<<< HEAD
 
             numeroRandom = randint(1, 20)
             if numeroRandom > 19:
@@ -52,6 +53,14 @@ class Nivel():
                 fireball = Fireball.Fireball(500, 0, 200, 200,self.malvavisco.rect.x,self.malvavisco.rect.y)
                 self.spritesFireball.add(fireball)
 
+=======
+            #numeroRandom = randint(1, 20)
+            #if numeroRandom > 19:
+             #   nuevoDulce = Dulce.Dulce()
+              #  self.spritesDulces.add(nuevoDulce)
+               # listaDulces.append(nuevoDulce)
+            
+>>>>>>> 1c2302fec436b9f5d546100dd65f7db496bf9710
             self.clock.tick(self.fps)
 
             for event in pygame.event.get():
@@ -80,15 +89,29 @@ class Nivel():
 
     def cargaDeDatos(self):
         self.malvavisco = Malvavisco.Malvavisco(375,550,150,150)
+        
+        self.spritesPrincipales.add(self.malvavisco)
         self.chef = Chef.Chef(500,0,250,250)
+        self.spritesPrincipales.add(self.chef)
+        
         self.background = Background.Background(0,0,1360,760)
+<<<<<<< HEAD
         self.spritesPrincipales.add(self.malvavisco)
         self.spritesPrincipales.add(self.chef)
+=======
+      
+        
+       
+>>>>>>> 1c2302fec436b9f5d546100dd65f7db496bf9710
         self.spriteBackground.add(self.background)
 
         self.threadFinalizado = True
 
     def drawText(self, surf, text, size, x, y):
+        
+        
+        
+        
             font_name = pygame.font.match_font('arial')
             font = pygame.font.Font(font_name,size)
             text_surface = font.render(text, True, self.colores["RED"])
