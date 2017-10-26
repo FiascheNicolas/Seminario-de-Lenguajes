@@ -37,16 +37,13 @@ class Nivel():
         ejecutandoNivel = True
         pygame.mixer.music.load("Sonidos/Alone.mp3")
         pygame.mixer.music.play(-1)
-        listaDulces = []
+      
 
         while ejecutandoNivel:
 
-            numeroRandom = randint(1, 20)
+            
             if not self.pausado:
-                if numeroRandom > 19:
-                    nuevoDulce = Dulce.Dulce()
-                    self.spritesDulces.add(nuevoDulce)
-                    listaDulces.append(nuevoDulce)
+              
                 self.cont += 1
                 if self.cont == 180:
                     self.estadoFireball = True

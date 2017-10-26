@@ -22,7 +22,7 @@ class Chef(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.inversa = False
-<<<<<<< HEAD
+
         
         self.attacking =True
         
@@ -31,7 +31,7 @@ class Chef(pygame.sprite.Sprite):
         
     
     
-=======
+
 
     def cargarAnimacionIdle(self):
         contador = 1
@@ -42,7 +42,7 @@ class Chef(pygame.sprite.Sprite):
 
         return listaAnimacionIdleChef
 
->>>>>>> c248f06c28ab21476e341469c51680a88f890b53
+
     def update(self, *args):
         
         
@@ -63,7 +63,7 @@ class Chef(pygame.sprite.Sprite):
                 self.posAtack=0
     def actualizarIdle(self):
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
-<<<<<<< HEAD
+
         
         self.delayIdle += 1   
         if(self.delayIdle == 4): 
@@ -91,16 +91,4 @@ class Chef(pygame.sprite.Sprite):
         return listaAnimacion    
         
         
-=======
 
-        if self.posIdle == 30:
-            self.inversa = True
-        elif self.posIdle == 1:
-            self.inversa = False
-
-        if self.inversa:
-            self.posIdle -= 1
-        else:
-            self.posIdle += 1
-
->>>>>>> c248f06c28ab21476e341469c51680a88f890b53
