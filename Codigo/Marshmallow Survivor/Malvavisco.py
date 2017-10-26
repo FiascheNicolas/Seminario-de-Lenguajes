@@ -28,23 +28,44 @@ PATH_RUN_ROCK = "imagenes/AnimacionesMalvavisco/RunRock/"
 RED=(255,0,0)
 pygame.mixer.init()
 class Malvavisco(pygame.sprite.Sprite):
-    
+
     def __init__(self, x, y, alto, ancho):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
-        
-        
+
+
         self.run = False
         self.idle = True
         self.derecha = True
         self.salto = False
         self.limite = False
+<<<<<<< HEAD
         
         self.rock = False  #tengo la piedra en la mano?
         self.throwing = False    #estoy tirando la piedra?
         
+=======
+
+
         self.velocidad = 3
+
+        self.rock = False
+
+        self.velocidad = 5
+
+
+
+        self.rock = False
+
+
+        self.rock = False
+
+        self.throwing = False
+
+>>>>>>> c248f06c28ab21476e341469c51680a88f890b53
+        self.velocidad = 3
+
         self.alto = alto
         self.ancho = ancho
         self.posRun = 0
@@ -52,6 +73,7 @@ class Malvavisco(pygame.sprite.Sprite):
         self.posJump = 0
         self.posThrowRock=0
         self.distanciaSalto=100
+<<<<<<< HEAD
         
         self.delayIdle=0
         self.delayIdleInvertido=0
@@ -68,9 +90,15 @@ class Malvavisco(pygame.sprite.Sprite):
         
         
         
+=======
+
+
+
+>>>>>>> c248f06c28ab21476e341469c51680a88f890b53
         self.animacionRun = self.cargarAnimacion(RUN, PATH_RUN)
-       
+
         self.animacionIdle = self.cargarAnimacion(IDLE, PATH_IDLE)
+<<<<<<< HEAD
         
       
         self.animacionJump = pygame.image.load( PATH_JUMP + "0.png").convert_alpha()
@@ -78,53 +106,142 @@ class Malvavisco(pygame.sprite.Sprite):
         self.animacionJumpDown = pygame.image.load(PATH_JUMP_DOWN + "0.png").convert_alpha()
         
         
+=======
+
+        self.animacionJump = self.cargarAnimacion(JUMP, PATH_JUMP)
+
+        self.animacionJumpDown = self.cargarAnimacion(JUMP,PATH_JUMP_DOWN)
+
+        #self.animacionJumpDownInvertida = self.cargarAnimacion(JUMP,PATH_JUMP_DOWN_INVERTIDA)
+
+
+
+>>>>>>> c248f06c28ab21476e341469c51680a88f890b53
         self.animacionThrowRock = self.cargarAnimacion(ROCK, PATH_THROW_ROCK)
-        
+
         self.animacionIdleRock = self.cargarAnimacion(IDLE, PATH_IDLE_ROCK)
-       
+
         self.animacionRunRock = self.cargarAnimacion(RUN, PATH_RUN_ROCK)
-       
-        
-        
+
+        #self.animacionRunRockInvertida = self.cargarAnimacion(RUN, PATH_RUN_ROCK_INVERTIDA)
+
+
+
+
+
+
         self.sonidoSalto = pygame.mixer.Sound("Sonidos/Salto.ogg")
+<<<<<<< HEAD
         
         self.image= pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))   
         
+=======
+
+        self.image= pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
+>>>>>>> c248f06c28ab21476e341469c51680a88f890b53
         self.rect = self.image.get_rect()
-        
+
         self.radius= int(self.rect.width/8)
         pygame.draw.circle(self.image,RED,self.rect.center,self.radius)
-        
+
         self.rect.x=x
         self.rect.y=y
         #self.rect.center=(x/2,y/2)# instancio la imagen en el centro de la pantalla
         self.posactual=self.rect.y
         #self.rect.center=(0,0)# instancio la imagen en el centro de la pantalla
-        
-    def update(self, *args):  
+
+    def update(self, *args):
         key=pygame.key.get_pressed() #detecto que tecla estoy presionando
+<<<<<<< HEAD
         
         
            
+=======
+
+>>>>>>> c248f06c28ab21476e341469c51680a88f890b53
         if key[pygame.K_ESCAPE]:
-            self.runningGame=False   
+
+            self.runningGame=False
+        if key[pygame.K_SPACE] and self.rect.y==self.posactual:
+            self.salto = True
+            self.sonidoSalto.play()
+
+
+            self.runningGame=False
         if key[pygame.K_w] and self.rect.y==self.posactual:
-            self.salto = True 
+            self.salto = True
             #self.sonidoSalto.play()
+
         if key[pygame.K_d]:
             self.derecha = True
             self.run = True
             if(self.rect.x<1247):
                 self.rect.x += self.velocidad + 1
-             
-            
+
+
+
         if key[pygame.K_a]:
             self.derecha=False
             self.run=True
             if(self.rect.x>-61):
                 self.rect.x -=self.velocidad
-            
-        
+
+
+
+
+        if not self.salto: #Si no estoy saltando
+
+            if self.derecha: # si esta mirando a la derecha
+                if self.idle:
+                    self.actualizarIdle()
+
+                if self.run:
+                    self.actualizarRun()
+                    if (not key[pygame.K_d]):
+                        self.run = False
+
+            else: #Si esta mirando a la izquierda
+                if self.idle:
+                    self.actualizarIdleInvertida()
+
+                if self.run:
+                    self.actualizarRunInvertida()
+                    if (not key[pygame.K_a]):
+                        self.run = False
+
+        else: #Si estoy saltando
+
+            if self.derecha: # Si salto y miro para la derecha
+
+                if(self.rect.y>self.posactual-100) and self.limite==False:
+                    self.rect.y -=5
+                    self.actualizarJump()
+
+                elif(self.rect.y!=self.posactual):
+                    self.limite=True
+                    self.rect.y += 5
+                    self.actualizarJumpDown()
+                    if(self.rect.y==self.posactual):
+                        self.limite=False
+                        self.salto=False
+
+            else: #Si salto y miro para la izquierda
+
+                if(self.rect.y>self.posactual-self.distanciaSalto) and self.limite==False:
+                    self.rect.y -=5
+                    self.actualizarJumpInvertido()
+
+                elif(self.rect.y!=self.posactual):
+                    self.limite=True
+                    self.rect.y += 5
+                    self.actualizarJumpDownInvertido()
+                    if(self.rect.y==self.posactual):
+                        self.limite=False
+                        self.salto=False
+
+
+
+
         if not self.rock: # Si no tengo una piedra en la mano#
             if not self.salto:# si no estoy saltando#
                 if self.derecha:# si esta mirando a la derecha#
@@ -141,17 +258,17 @@ class Malvavisco(pygame.sprite.Sprite):
                         self.actualizarRunInvertida()
                         if(not key[pygame.K_d]):
                             self.run=False
-                        
-                        
-                        
+
+
+
             else: #Si estoy saltando
-            
+
                 if self.derecha: # Si salto y miro para la derecha
-                
+
                     if(self.rect.y>self.posactual-100) and self.limite==False:
                         self.rect.y -=5
                         self.actualizarJump()
-                    
+
                     elif(self.rect.y!=self.posactual):
                         self.limite=True
                         self.rect.y += 5
@@ -159,13 +276,13 @@ class Malvavisco(pygame.sprite.Sprite):
                     if(self.rect.y==self.posactual):
                         self.limite=False
                         self.salto=False
-                    
+
                 else: #Si salto y miro para la izquierda
-                
+
                     if(self.rect.y>self.posactual-self.distanciaSalto) and self.limite==False:
                         self.rect.y -=5
                         self.actualizarJumpInvertido()
-                    
+
                     elif(self.rect.y!=self.posactual):
                         self.limite=True
                         self.rect.y += 5
@@ -173,23 +290,21 @@ class Malvavisco(pygame.sprite.Sprite):
                     if(self.rect.y==self.posactual):
                         self.limite=False
                         self.salto=False
-        
-            
-            
-            
-            
-            
-            
-            
-                
+
+
+
+
+
+
+
+
+
         else :  #  Si tengo la piedra en la mano#
-            
-                
-                
+
+
+
                 if self.derecha:# si esta mirando a la derecha#
-                    
-                    
-                    
+
                     if self.idle:
                         self.actualizarIdleRock()
                     if self.run:
@@ -203,29 +318,48 @@ class Malvavisco(pygame.sprite.Sprite):
                         self.actualizarRunRockInvertida()
                         if(not key[pygame.K_d]):
                             self.run=False
-                        
-                        
-                        
-            
-        
-                    
-        
-    
+
+
+
+
+
+
+
+
     def actualizarIdleRockInvertida(self):
-        self.image = pygame.transform.scale((pygame.transform.flip(self.animacionIdleRock[self.posIdle],True,False)),(self.alto,self.ancho))
-        self.posIdle += 1   
-        if(self.posIdle == (IDLE + 1)): 
+
+        self.image = pygame.transform.scale(self.animacionIdleRockInvertida[self.posIdle], (self.alto, self.ancho))
+        self.posIdle += 1
+        if(self.posIdle == (IDLE + 1)):
+
+            self.image = pygame.transform.scale((pygame.transform.flip(self.animacionIdleRock[self.posIdle],True,False)),(self.alto,self.ancho))
+            self.posIdle += 1
+        if(self.posIdle == (IDLE + 1)):
+
+            self.image = pygame.transform.scale((pygame.transform.flip(self.animacionIdleRock[self.posIdle],True,False)),(self.alto,self.ancho))
+            self.posIdle += 1
+        if(self.posIdle == (IDLE + 1)):
+
             self.posIdle = 0
-    
+
     def actualizarIdleRock(self):
-        self.image = pygame.transform.scale(self.animacionIdleRock[self.posIdle], (self.alto, self.ancho))
-        self.posIdle +=1
-           
-        if(self.posIdle == (IDLE + 1)): 
+
+        self.image = pygame.transform.scale(self.animacionIdleRock[self.posIdle], (self.alto, self.ancho),(0,0,20,41))
+        self.image = (0,0,20,41)
+
+        if(self.posIdle == (IDLE + 1)):
+
+
+            self.image = pygame.transform.scale(self.animacionIdleRock[self.posIdle], (self.alto, self.ancho))
+            self.posIdle +=1
+
+        if(self.posIdle == (IDLE + 1)):
+
             self.posIdle = 0
-    
+
     def actualizarThrowRock(self):
         self.image = pygame.transform.scale(self.animacionThrowRock[self.posThrowRock],(self.alto,self.ancho))
+<<<<<<< HEAD
         self.delayThrowRock += 1
         if(self.delayThrowRock==2):
             self.delayThrowRock=0
@@ -257,9 +391,23 @@ class Malvavisco(pygame.sprite.Sprite):
             if (self.posIdle == IDLE +1):
                 self.posIdle=0
             
+=======
+        self.posThrowRock +=1
+        if (self.posThrowRock==33):
+            self.posThrowRock=0
+            self.rock= False
+
+    def actualizarIdle(self):
+        self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
+        self.posIdle += 1
+        if(self.posIdle == (IDLE + 1)):
+            self.posIdle = 0
+
+>>>>>>> c248f06c28ab21476e341469c51680a88f890b53
     def actualizarIdleInvertida(self):
-        
+
         self.image = pygame.transform.scale((pygame.transform.flip(self.animacionIdle[self.posIdle],True,False)),(self.alto,self.ancho))
+<<<<<<< HEAD
         
         
         self.delayIdleInvertido += 1   
@@ -269,8 +417,31 @@ class Malvavisco(pygame.sprite.Sprite):
             if (self.posIdle == IDLE +1):
                 self.posIdle=0
               
+=======
+
+
+        self.posIdle +=1
+        if(self.posIdle == IDLE + 1):
+
+
+            self.posIdle=0
+
+
+            self.posIdle=0
+
+>>>>>>> c248f06c28ab21476e341469c51680a88f890b53
     def actualizarRunRockInvertida(self):
+
+        self.image = pygame.transform.scale(self.animacionRunRockInvertida[self.posRun], (self.alto, self.ancho))
+        self.posRun += 1
+        if(self.posRun == RUN):
+
+            self.posIdle=0
+
+    def actualizarRunRockInvertida(self):
+
         self.image = pygame.transform.scale((pygame.transform.flip(self.animacionRunRock[self.posRun],True,False)),(self.alto,self.ancho))
+<<<<<<< HEAD
         self.delayRunRockInvertido += 1
         if(self.delayRunRockInvertido == 2):
             self.delayRunRockInvertido=0
@@ -328,22 +499,87 @@ class Malvavisco(pygame.sprite.Sprite):
         self.image = pygame.transform.scale((pygame.transform.flip(self.animacionJumpDown,True,False)),(self.alto,self.ancho))
        
     
+=======
+
+        self.posRun += 1
+        if(self.posRun == RUN):
+
+            self.posRun = 0
+
+    def actualizarRunRock(self):
+        self.image = pygame.transform.scale(self.animacionRunRock[self.posRun], (self.alto, self.ancho))
+        self.posRun += 1
+        if(self.posRun == RUN):
+            self.posRun = 0
+
+    def actualizarRun(self):
+        self.image = pygame.transform.scale(self.animacionRun[self.posRun], (self.alto, self.ancho))
+        self.posRun += 1
+        if(self.posRun == RUN):
+            self.posRun = 0
+
+    def actualizarRunInvertida(self):
+        self.image = pygame.transform.scale((pygame.transform.flip(self.animacionRun[self.posRun],True,False)),(self.alto,self.ancho))
+        self.posRun +=1
+        if(self.posRun == RUN):
+            self.posRun = 0
+
+    def actualizarJump(self):
+        self.image=pygame.transform.scale(self.animacionJump[self.posJump],(self.alto,self.ancho))
+        self.posJump +=1
+        if (self.posJump== JUMP):
+            self.posJump=0
+
+    def actualizarJumpInvertido(self):
+        self.image = pygame.transform.scale((pygame.transform.flip(self.animacionJump[self.posJump],True,False)),(self.alto,self.ancho))
+        self.posJump +=1
+        if(self.posJump==JUMP):
+            self.posJump=0
+
+
+    def actualizarJumpDown(self):
+        self.image=pygame.transform.scale(self.animacionJumpDown[self.posJump],(self.alto,self.ancho))
+        self.posJump +=1
+        if(self.posJump==JUMP):
+            self.posJump=0
+
+    def actualizarJumpDownInvertido(self):
+        self.image = pygame.transform.scale((pygame.transform.flip(self.animacionJumpDown[self.posJump],True,False)),(self.alto,self.ancho))
+        self.posJump +=1
+        if(self.posJump==JUMP):
+            self.posJump=0
+
+>>>>>>> c248f06c28ab21476e341469c51680a88f890b53
     def cargarAnimacion(self, cantidad, path):
         contador = 0
         listaAnimacion = []
+
+        while contador != cantidad +1:
+            listaAnimacion.append(pygame.image.load(path + str(contador) + ".png").convert_alpha())
+            contador += 1
+
         while contador != cantidad + 1:
+<<<<<<< HEAD
             
             
+=======
+            #imagen = pygame.image.load(path + str(contador) + ".png").convert_alpha()
+
+>>>>>>> c248f06c28ab21476e341469c51680a88f890b53
             #listaAnimacion.append(imagen.subsurface(0,0,1040,721))
             #istaAnimacion.append(pygame.image.load(path + str(contador) + ".png").subsurface(0,0,0,0))
             listaAnimacion.append(pygame.image.load(path + str(contador) + ".png").convert_alpha())
+<<<<<<< HEAD
             #listaAnimacion.append(pygame.image.load("imagenes/testeo.png").convert_alpha())
             
            
             
             
+=======
+
+>>>>>>> c248f06c28ab21476e341469c51680a88f890b53
             contador += 1
-        
+
         return listaAnimacion
-          
+
 
