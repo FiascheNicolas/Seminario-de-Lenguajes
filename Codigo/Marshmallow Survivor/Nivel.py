@@ -5,9 +5,8 @@ import Chef
 import Background
 import threading
 import time
-from random import randint
 import Fireball
-
+import Piedra
 
 class Nivel():
 
@@ -15,6 +14,7 @@ class Nivel():
         self.threadFinalizado = False
         self.spritesPrincipales = pygame.sprite.Group()
         self.spriteBackground = pygame.sprite.Group()
+        self.spritesPiedra = pygame.sprite.Group()
         self.clock = pygame.time.Clock()
         self.screen = screenMenu
         self.alto = alto
@@ -32,7 +32,6 @@ class Nivel():
         ejecutandoNivel = True
 
         while ejecutandoNivel:
-
             self.clock.tick(self.fps)
 
             for event in pygame.event.get():
@@ -46,17 +45,22 @@ class Nivel():
 
             self.spriteBackground.draw(self.screen)
             self.spritesPrincipales.draw(self.screen)
+            self.spritesPiedra.draw(self.screen)
             self.spritesPrincipales.update()
+            self.spritesPrincipales.update()
+            self.spritesPiedra.update()
             pygame.display.flip()
 
     def cargaDeDatos(self):
         self.malvavisco = Malvavisco.Malvavisco(375,550,150,150)
-
         self.spritesPrincipales.add(self.malvavisco)
         self.chef = Chef.Chef(500,0,250,250)
         self.spritesPrincipales.add(self.chef)
         self.background = Background.Background(0,0,1360,760)
         self.spriteBackground.add(self.background)
+        self.piedra = Piedra.Piedra(500, 0)
+        self.spritesPiedra.add(self.piedra)
+        #
         self.threadFinalizado = True
 
     def drawText(self, surf, text, size, x, y):
