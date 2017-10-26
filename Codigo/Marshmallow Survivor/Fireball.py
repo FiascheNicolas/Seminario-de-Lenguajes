@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import pygame
 import math
 from math import atan2, degrees, pi
@@ -15,27 +14,36 @@ class Fireball(pygame.sprite.Sprite):
         self.ancho = ancho
         self.animacionIdle = self.cargarImagen(posMalvaviscoX, posMalvaviscoY,x,y)
         self.posIdle = 0
-        self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
+        self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (50,80))
+
+
+        self.rect = self.image.get_rect()
+        self.rect.y = self.y
+        self.rect.x = self.x
+
 
         self.rect = self.image.get_rect()
         self.rect.y = y
         self.rect.x = x
+
         self.inversa = False
+        self.velocidad = 5
+        self.velocidad = 5
+        self.grados = 0
         # Distancia entre las posiciones X y Y, y se saca la recta que une los 2 puntos
         self.dx, self.dy = posMalvaviscoX - self.rect.x , posMalvaviscoY - self.rect.y
 
         self.dist = math.hypot(self.dx, self.dy)
         self.dx, self.dy = self.dx / self.dist, self.dy / self.dist
-        self.velocidad = 5
 
+        self.sonidoColision = pygame.mixer.Sound("Sonidos/colisionFireball.ogg")
 
     def update(self):
 
-        self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
+        self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (50,80))
 
         self.rect.x += self.dx * self.velocidad
         self.rect.y += self.dy * self.velocidad
-
 
 
         if self.posIdle == 9:
@@ -48,7 +56,6 @@ class Fireball(pygame.sprite.Sprite):
         else:
             self.posIdle += 1
 
-
         self.die()
 
 
@@ -58,13 +65,13 @@ class Fireball(pygame.sprite.Sprite):
 
         while(contador<=9):
             image = pygame.image.load("imagenes/Fireball/" + str(contador) + ".png").convert_alpha()
-            #
+
             dx = posMalvaviscoX - x
             dy = posMalvaviscoY - y
             rads = atan2(-dy,dx)
             rads %= 2*pi
-            grados = degrees(rads)
-            image = pygame.transform.rotate(image, grados+90)
+            self.grados = degrees(rads)
+            image = pygame.transform.rotate(image, self.grados+90)
             listaAnimacion.append(image)
             contador += 1
 

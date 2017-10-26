@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="installedFeatures">
+		<item value="AnyEditTools:2.6.1.201709191438"/>
+		<item value="org.eclipse.egit:4.8.0.201706111038-r"/>
+		<item value="org.eclipse.emf.common:2.13.0.v20170609-0707"/>
+		<item value="org.eclipse.emf.ecore:2.13.0.v20170609-0707"/>
+		<item value="org.eclipse.epp.mpc:1.6.0.v20170616-0843"/>
+		<item value="org.eclipse.help:2.2.101.v20170906-1700"/>
+		<item value="org.eclipse.jgit:4.8.0.201706111038-r"/>
+		<item value="org.eclipse.platform:4.7.1.v20170906-1700"/>
+		<item value="org.eclipse.rcp:4.7.1.v20170906-1700"/>
+		<item value="org.python.pydev.feature:6.0.0.201709191438"/>
+	</list>
+	<section name="ExternalProjectImportWizard">
+		<item value="false" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="E:\REPOSITORIO github\Codigo\Marshmallow Survivor"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+		</list>
+	</section>
+</section>

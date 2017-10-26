@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import pygame
 import Malvavisco
 import Chef
@@ -20,9 +19,12 @@ class Nivel():
         self.alto = alto
         self.ancho = ancho
         self.fps = 60
+        self.estadoFireball = False
         self.colores = { "RED" : (255,0,0), "BLACK" : (0,0,0) }
         self.iteradorParaTexto = 0
         self.textoPantallaDeCarga = "Cargando"
+        self.cont = 0
+        self.pausado = False
 
     def iniciar(self):
         self.pantallaDeCarga()
@@ -30,6 +32,9 @@ class Nivel():
         pygame.mixer.init()
         pygame.display.set_caption("Marshmellow Survivor")
         ejecutandoNivel = True
+        pygame.mixer.music.load("Sonidos/Alone.mp3")
+        pygame.mixer.music.play(-1)
+
 
         while ejecutandoNivel:
             self.clock.tick(self.fps)
@@ -38,17 +43,30 @@ class Nivel():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         ejecutandoNivel = False
+                    if event.key == pygame.K_p:
+                        self.pausado = not self.pausado
 
-            #hits = pygame.sprite.spritecollide(malvavisco, spritesDulces,False,pygame.sprite.collide_circle)
-            #if hits:
-                #print "Buen dia"
+            if self.estadoFireball:
+                hits = pygame.sprite.spritecollide(self.malvavisco,self.spritesFireball,False,pygame.sprite.collide_circle)
+                if hits:
+                    fireball.sonidoColision.play()
+                    fireball.kill()
+
+
+            if not self.pausado:
+                self.spritesPrincipales.update()
+
+                self.spritesFireball.update()
+
 
             self.spriteBackground.draw(self.screen)
             self.spritesPrincipales.draw(self.screen)
             self.spritesPiedra.draw(self.screen)
-            self.spritesPrincipales.update()
-            self.spritesPrincipales.update()
-            self.spritesPiedra.update()
+            self.spritesFireball.draw(self.screen)
+
+            if self.pausado:
+                self.drawPauseScreen("PAUSA", 105,(255,0,0), self.alto / 2, self.ancho / 2)
+
             pygame.display.flip()
 
     def cargaDeDatos(self):
@@ -56,7 +74,13 @@ class Nivel():
         self.spritesPrincipales.add(self.malvavisco)
         self.chef = Chef.Chef(500,0,250,250)
         self.spritesPrincipales.add(self.chef)
+
         self.background = Background.Background(0,0,1360,760)
+
+        self.spritesPrincipales.add(self.malvavisco)
+        self.spritesPrincipales.add(self.chef)
+
+
         self.spriteBackground.add(self.background)
         self.piedra = Piedra.Piedra(500, 0)
         self.spritesPiedra.add(self.piedra)
@@ -64,6 +88,7 @@ class Nivel():
         self.threadFinalizado = True
 
     def drawText(self, surf, text, size, x, y):
+
             font_name = pygame.font.match_font('arial')
             font = pygame.font.Font(font_name,size)
             text_surface = font.render(text, True, self.colores["RED"])
@@ -91,3 +116,11 @@ class Nivel():
             self.iteradorParaTexto = 0
 
         self.iteradorParaTexto += 1
+
+    def drawPauseScreen(self,text,size,color,x,y):
+            font_name = pygame.font.match_font('arial')
+            font = pygame.font.Font(font_name,size)
+            text_surface = font.render(text,True,color)
+            text_rect = text_surface.get_rect()
+            text_rect.center = (x,y)
+            self.screen.blit(text_surface,text_rect)
