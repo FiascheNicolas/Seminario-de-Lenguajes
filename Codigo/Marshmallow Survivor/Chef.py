@@ -27,8 +27,6 @@ class Chef(pygame.sprite.Sprite):
 
         return listaAnimacionIdleChef
 
-
-
     def update(self, *args):
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
 
@@ -41,6 +39,4 @@ class Chef(pygame.sprite.Sprite):
             self.posIdle -= 1
         else:
             self.posIdle += 1
-
-
 

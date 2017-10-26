@@ -22,14 +22,14 @@ class Nivel():
         self.alto = alto
         self.ancho = ancho
         self.fps = 60
+        self.estadoFireball = False
         self.colores = { "RED" : (255,0,0), "BLACK" : (0,0,0) }
         self.iteradorParaTexto = 0
         self.textoPantallaDeCarga = "Cargando"
         self.cont = 0
-        self.sonidoColisionFireball = pygame.mixer.Sound("Sonidos/colisionFireball.ogg")
+        self.pausado = False
 
     def iniciar(self):
-
         self.pantallaDeCarga()
         pygame.init()
         pygame.mixer.init()
@@ -38,28 +38,21 @@ class Nivel():
         pygame.mixer.music.load("Sonidos/Alone.mp3")
         pygame.mixer.music.play(-1)
         listaDulces = []
+
         while ejecutandoNivel:
 
-
             numeroRandom = randint(1, 20)
-            if numeroRandom > 19:
-                nuevoDulce = Dulce.Dulce()
-                self.spritesDulces.add(nuevoDulce)
-                listaDulces.append(nuevoDulce)
-
-            self.cont += 1
-            if self.cont == 120:
-                self.cont = 0
-                fireball = Fireball.Fireball(500, 0, 200, 200,self.malvavisco.rect.x,self.malvavisco.rect.y)
-                self.spritesFireball.add(fireball)
-
-
-            #numeroRandom = randint(1, 20)
-            #if numeroRandom > 19:
-             #   nuevoDulce = Dulce.Dulce()
-              #  self.spritesDulces.add(nuevoDulce)
-               # listaDulces.append(nuevoDulce)
-
+            if not self.pausado:
+                if numeroRandom > 19:
+                    nuevoDulce = Dulce.Dulce()
+                    self.spritesDulces.add(nuevoDulce)
+                    listaDulces.append(nuevoDulce)
+                self.cont += 1
+                if self.cont == 180:
+                    self.estadoFireball = True
+                    self.cont = 0
+                    fireball = Fireball.Fireball(self.chef.rect.centerx-40, self.chef.rect.centery, 30, 60,self.malvavisco.rect.x,self.malvavisco.rect.y)
+                    self.spritesFireball.add(fireball)
 
             self.clock.tick(self.fps)
 
@@ -67,25 +60,31 @@ class Nivel():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         ejecutandoNivel = False
+                    if event.key == pygame.K_p:
+                        self.pausado = not self.pausado
 
-            #hits = pygame.sprite.spritecollide(malvavisco, spritesDulces,False,pygame.sprite.collide_circle)
-            #if hits:
-                #print "Buen dia"
-            colisionFireball = pygame.sprite.spritecollide(self.malvavisco,self.spritesFireball,True)
-            if colisionFireball:
-                self.sonidoColisionFireball.play()
+            if self.estadoFireball:
+                hits = pygame.sprite.spritecollide(self.malvavisco,self.spritesFireball,False,pygame.sprite.collide_circle)
+                if hits:
+                    fireball.sonidoColision.play()
+                    fireball.kill()
+
+
+            if not self.pausado:
+                self.spritesPrincipales.update()
+                self.spritesDulces.update()
+                self.spritesFireball.update()
 
 
             self.spriteBackground.draw(self.screen)
             self.spritesDulces.draw(self.screen)
             self.spritesPrincipales.draw(self.screen)
             self.spritesFireball.draw(self.screen)
-            self.spritesPrincipales.update()
-            self.spritesDulces.update()
-            self.spritesFireball.update()
+
+            if self.pausado:
+                self.drawPauseScreen("PAUSA", 105,(255,0,0), self.alto / 2, self.ancho / 2)
+
             pygame.display.flip()
-
-
 
     def cargaDeDatos(self):
         self.malvavisco = Malvavisco.Malvavisco(375,550,150,150)
@@ -100,17 +99,11 @@ class Nivel():
         self.spritesPrincipales.add(self.chef)
 
 
-
-
-
         self.spriteBackground.add(self.background)
 
         self.threadFinalizado = True
 
     def drawText(self, surf, text, size, x, y):
-
-
-
 
             font_name = pygame.font.match_font('arial')
             font = pygame.font.Font(font_name,size)
@@ -140,3 +133,10 @@ class Nivel():
 
         self.iteradorParaTexto += 1
 
+    def drawPauseScreen(self,text,size,color,x,y):
+            font_name = pygame.font.match_font('arial')
+            font = pygame.font.Font(font_name,size)
+            text_surface = font.render(text,True,color)
+            text_rect = text_surface.get_rect()
+            text_rect.center = (x,y)
+            self.screen.blit(text_surface,text_rect)
