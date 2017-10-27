@@ -2,12 +2,10 @@ import pygame
 import Malvavisco
 import Chef
 import Background
-import Dulce
 import threading
 import time
-from random import randint
 import Fireball
-
+import Piedra
 
 class Nivel():
 
@@ -15,8 +13,7 @@ class Nivel():
         self.threadFinalizado = False
         self.spritesPrincipales = pygame.sprite.Group()
         self.spriteBackground = pygame.sprite.Group()
-        self.spritesDulces = pygame.sprite.Group()
-        self.spritesFireball = pygame.sprite.Group()
+        self.spritesPiedra = pygame.sprite.Group()
         self.clock = pygame.time.Clock()
         self.screen = screenMenu
         self.alto = alto
@@ -37,20 +34,9 @@ class Nivel():
         ejecutandoNivel = True
         pygame.mixer.music.load("Sonidos/Alone.mp3")
         pygame.mixer.music.play(-1)
-      
+
 
         while ejecutandoNivel:
-
-            
-            if not self.pausado:
-              
-                self.cont += 1
-                if self.cont == 180:
-                    self.estadoFireball = True
-                    self.cont = 0
-                    fireball = Fireball.Fireball(self.chef.rect.centerx-40, self.chef.rect.centery, 30, 60,self.malvavisco.rect.x,self.malvavisco.rect.y)
-                    self.spritesFireball.add(fireball)
-
             self.clock.tick(self.fps)
 
             for event in pygame.event.get():
@@ -69,13 +55,13 @@ class Nivel():
 
             if not self.pausado:
                 self.spritesPrincipales.update()
-                self.spritesDulces.update()
+
                 self.spritesFireball.update()
 
 
             self.spriteBackground.draw(self.screen)
-            self.spritesDulces.draw(self.screen)
             self.spritesPrincipales.draw(self.screen)
+            self.spritesPiedra.draw(self.screen)
             self.spritesFireball.draw(self.screen)
 
             if self.pausado:
@@ -85,7 +71,6 @@ class Nivel():
 
     def cargaDeDatos(self):
         self.malvavisco = Malvavisco.Malvavisco(375,550,150,150)
-
         self.spritesPrincipales.add(self.malvavisco)
         self.chef = Chef.Chef(500,0,250,250)
         self.spritesPrincipales.add(self.chef)
@@ -97,7 +82,9 @@ class Nivel():
 
 
         self.spriteBackground.add(self.background)
-
+        self.piedra = Piedra.Piedra(500, 0)
+        self.spritesPiedra.add(self.piedra)
+        #
         self.threadFinalizado = True
 
     def drawText(self, surf, text, size, x, y):

@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
-
-import random
+#!/usr/bin/env python
 import pygame
 from pygame.locals import *
 import Nivel
 
-ALTO=1360
-ANCHO=768
+ALTO = 1360
+ANCHO = 768
 sonido = pygame.mixer.Sound("Sonidos/musicaMenu.wav")
 
-class Opcion:
 
+class Opcion:
     def __init__(self, fuente, titulo, x, y, paridad, funcion_asignada):
         self.imagen_normal = fuente.render(titulo, 1, (0, 0, 0))
         self.imagen_destacada = fuente.render(titulo, 1, (200, 0, 0))
@@ -87,7 +86,7 @@ class Menu:
         self.mantiene_pulsado = False
 
     def actualizar(self):
-        """Altera el valor de 'self.seleccionado' con los direccionales."""
+        "Altera el valor de 'self.seleccionado' con los direccionales."
 
         k = pygame.key.get_pressed()
 
@@ -118,7 +117,7 @@ class Menu:
             o.actualizar()
 
     def imprimir(self, screen):
-        """Imprime sobre 'screen' el texto de cada opción del menú."""
+        "Imprime sobre 'screen' el texto de cada opción del menú."
 
         self.cursor.imprimir(screen)
 
@@ -156,7 +155,7 @@ if __name__ == '__main__':
         ]
 
     pygame.font.init()
-    screen = pygame.display.set_mode((ALTO, ANCHO),pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((ALTO, ANCHO))
     fondo = pygame.image.load("imagenes/Menu/fondo 2.0.png").convert()
     menu = Menu(opciones)
     global sonido
@@ -167,17 +166,13 @@ if __name__ == '__main__':
     #salir_del_programa()
     ######
     while not salir:
-
-
         for e in pygame.event.get():
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_ESCAPE:
                     salir = True
 
-
         screen.blit(fondo, (0, 0))
         menu.actualizar()
         menu.imprimir(screen)
-
         pygame.display.flip()
         pygame.time.delay(10)
