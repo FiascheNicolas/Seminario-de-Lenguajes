@@ -14,6 +14,7 @@ class Nivel():
         self.spritesPrincipales = pygame.sprite.Group()
         self.spriteBackground = pygame.sprite.Group()
         self.spritesPiedra = pygame.sprite.Group()
+        self.spritesFireball = pygame.sprite.Group()
         self.clock = pygame.time.Clock()
         self.screen = screenMenu
         self.alto = alto

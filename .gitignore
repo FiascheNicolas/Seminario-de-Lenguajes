@@ -20,3 +20,4 @@ Codigo/Marshmallow Survivor/.metadata/.plugins/org.eclipse.e4.workbench/workbenc
 *.xml
 Codigo/Marshmallow Survivor/.metadata/.plugins/org.python.pydev/pyunit_tests/test_run_pin_info.txt
 Codigo/Marshmallow Survivor/.metadata/version.ini
+*.pyc
