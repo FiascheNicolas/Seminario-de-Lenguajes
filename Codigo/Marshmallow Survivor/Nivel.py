@@ -20,12 +20,14 @@ class Nivel():
         self.alto = alto
         self.ancho = ancho
         self.fps = 60
-        self.estadoFireball = False
         self.colores = { "RED" : (255,0,0), "BLACK" : (0,0,0) }
         self.iteradorParaTexto = 0
         self.textoPantallaDeCarga = "Cargando"
         self.cont = 0
         self.pausado = False
+        self.fireball = Fireball.Fireball(0, -200, 30, 30,0,0)
+        self.spritesFireball.add(self.fireball)
+
 
     def iniciar(self):
         self.pantallaDeCarga()
@@ -41,10 +43,9 @@ class Nivel():
             self.cont += 1
 
             if(self.cont == 180):
-                self.fireball = Fireball.Fireball(500, 0, 30, 30, self.malvavisco.devolverPosicionX(),
-                    self.malvavisco.devolverPosicionY())
-                self.spritesFireball.add(self.fireball)
+                self.fireball.actualizarPosicion(self.chef.rect.centerx-40, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
                 self.cont = 0
+                self.fireball.fireballExiste = True
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
@@ -53,16 +54,16 @@ class Nivel():
                     if event.key == pygame.K_p:
                         self.pausado = not self.pausado
 
-            if self.estadoFireball:
-                hits = pygame.sprite.spritecollide(self.malvavisco, self.spritesFireball,
-                    False, pygame.sprite.collide_circle)
+            if self.fireball.fireballExiste:
+                hits = pygame.sprite.spritecollide(self.malvavisco, self.spritesFireball,False, pygame.sprite.collide_circle)
                 if hits:
-                    fireball.sonidoColision.play()
-                    fireball.kill()
+                    self.fireball.sonidoColision.play()
+                    self.fireball.die(True)
 
             if not self.pausado:
                 self.spritesPrincipales.update()
-                self.spritesFireball.update()
+                if self.fireball.fireballExiste:
+                    self.spritesFireball.update()
 
             self.spriteBackground.draw(self.screen)
             self.spritesPrincipales.draw(self.screen)
