@@ -284,3 +284,9 @@ class Malvavisco(pygame.sprite.Sprite):
             contador += 1
 
         return listaAnimacion
+
+    def devolverPosicionX(self):
+        return self.rect.x
+
+    def devolverPosicionY(self):
+        return self.rect.y

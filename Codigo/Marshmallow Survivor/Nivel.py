@@ -36,9 +36,15 @@ class Nivel():
         pygame.mixer.music.load("Sonidos/Alone.mp3")
         pygame.mixer.music.play(-1)
 
-
         while ejecutandoNivel:
             self.clock.tick(self.fps)
+            self.cont += 1
+
+            if(self.cont == 180):
+                self.fireball = Fireball.Fireball(500, 0, 30, 30, self.malvavisco.devolverPosicionX(),
+                    self.malvavisco.devolverPosicionY())
+                self.spritesFireball.add(self.fireball)
+                self.cont = 0
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
@@ -48,17 +54,15 @@ class Nivel():
                         self.pausado = not self.pausado
 
             if self.estadoFireball:
-                hits = pygame.sprite.spritecollide(self.malvavisco,self.spritesFireball,False,pygame.sprite.collide_circle)
+                hits = pygame.sprite.spritecollide(self.malvavisco, self.spritesFireball,
+                    False, pygame.sprite.collide_circle)
                 if hits:
                     fireball.sonidoColision.play()
                     fireball.kill()
 
-
             if not self.pausado:
                 self.spritesPrincipales.update()
-
                 self.spritesFireball.update()
-
 
             self.spriteBackground.draw(self.screen)
             self.spritesPrincipales.draw(self.screen)
@@ -75,16 +79,12 @@ class Nivel():
         self.spritesPrincipales.add(self.malvavisco)
         self.chef = Chef.Chef(500,0,250,250)
         self.spritesPrincipales.add(self.chef)
-
         self.background = Background.Background(0,0,1360,760)
-
-        self.spritesPrincipales.add(self.malvavisco)
-        self.spritesPrincipales.add(self.chef)
-
-
         self.spriteBackground.add(self.background)
         self.piedra = Piedra.Piedra(500, 0)
         self.spritesPiedra.add(self.piedra)
+
+
         #
         self.threadFinalizado = True
 
