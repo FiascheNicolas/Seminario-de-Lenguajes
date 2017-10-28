@@ -1,4 +1,5 @@
 import pygame
+import random
 import Malvavisco
 import Chef
 import Background
@@ -6,6 +7,8 @@ import threading
 import time
 import Fireball
 import Piedra
+
+#0 a 1300
 
 class Nivel():
 
@@ -26,6 +29,8 @@ class Nivel():
         self.textoPantallaDeCarga = "Cargando"
         self.cont = 0
         self.pausado = False
+        self.piedraVisible = False
+        self.contadorPiedra = 0
 
     def iniciar(self):
         self.pantallaDeCarga()
@@ -39,6 +44,15 @@ class Nivel():
         while ejecutandoNivel:
             self.clock.tick(self.fps)
             self.cont += 1
+            self.contadorPiedra += 1
+
+            self.piedraVisible = False
+            if(self.contadorPiedra == 720 and self.piedraVisible == False):
+                self.piedraVisible = True
+                self.contadorPiedra = 0
+                self.piedra = Piedra.Piedra(random.randrange(1300), 660)
+                self.spritesPiedra.add(self.piedra)
+                self.contadorPiedra = 0
 
             if(self.cont == 180):
                 self.fireball = Fireball.Fireball(500, 0, 30, 30, self.malvavisco.devolverPosicionX(),
@@ -63,6 +77,7 @@ class Nivel():
             if not self.pausado:
                 self.spritesPrincipales.update()
                 self.spritesFireball.update()
+                self.spritesPiedra.update()
 
             self.spriteBackground.draw(self.screen)
             self.spritesPrincipales.draw(self.screen)
@@ -81,10 +96,6 @@ class Nivel():
         self.spritesPrincipales.add(self.chef)
         self.background = Background.Background(0,0,1360,760)
         self.spriteBackground.add(self.background)
-        self.piedra = Piedra.Piedra(500, 0)
-        self.spritesPiedra.add(self.piedra)
-
-
         #
         self.threadFinalizado = True
 

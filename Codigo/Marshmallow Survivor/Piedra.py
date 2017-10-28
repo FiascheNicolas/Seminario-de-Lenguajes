@@ -10,6 +10,7 @@ class Piedra(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
+        self.tiempoActiva = 0
 
     def cargarImagen(self):
         self.path = pygame.image.load("imagenes/Background/Piedra.png")
@@ -19,5 +20,10 @@ class Piedra(pygame.sprite.Sprite):
     def update(self):
         key = pygame.key.get_pressed()
 
-        if(self.rect.y != 660):
-            self.rect.y += 2
+        self.tiempoActiva += 1
+        if(self.tiempoActiva == 180):
+            self.die()
+
+    def die(self):
+        self.kill()
+        self.tiempoActiva = 0
