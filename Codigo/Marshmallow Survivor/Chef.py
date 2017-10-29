@@ -32,7 +32,7 @@ class Chef(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
         self.rect = self.image.get_rect()
         self.rect.x = x
-        self.rect.y = y 
+        self.rect.y = y
 
     def cargarAnimacionIdle(self):
         contador = 1

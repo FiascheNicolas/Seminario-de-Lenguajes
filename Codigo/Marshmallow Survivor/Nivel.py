@@ -28,8 +28,6 @@ class Nivel():
         self.textoPantallaDeCarga = "Cargando"
         self.cont = 0
         self.pausado = False
-        self.fireball = Fireball.Fireball(0, -200, 30, 30,0,0)
-        self.spritesFireball.add(self.fireball)
         self.piedraVisible = False
         self.contadorPiedra = 0
 
@@ -47,14 +45,13 @@ class Nivel():
             self.cont += 1
             self.contadorPiedra += 1
 
-            if self.contadorPiedra == 720:
-                self.piedraVisible = True
-                self.contadorPiedra = 0
-                self.piedra = Piedra.Piedra(random.randrange(1300), 660)
-                self.spritesPiedra.add(self.piedra)
-                self.contadorPiedra = 0
+            if(self.contadorPiedra % 180 == 0):
+                self.piedra.die()
 
-            if self.piedraVisible == True:
+            if (self.contadorPiedra % 720 == 0) and (not self.malvavisco.rock):
+                self.piedra.actualizarPosicion(random.randrange(1300), 660)
+
+            if 0 <= self.piedra.rect.x <= 1300:
                 if pygame.sprite.collide_rect(self.piedra, self.malvavisco):
                     self.malvavisco.rock = True
                     self.piedra.die()
@@ -80,10 +77,9 @@ class Nivel():
 
             if not self.pausado:
                 self.spritesPrincipales.update()
-
+                self.spritesPiedra.update()
                 if self.fireball.fireballExiste:
                     self.spritesFireball.update()
-                self.spritesPiedra.update()
 
             self.spriteBackground.draw(self.screen)
             self.spritesPrincipales.draw(self.screen)
@@ -102,6 +98,11 @@ class Nivel():
         self.spritesPrincipales.add(self.chef)
         self.background = Background.Background(0,0,1360,760)
         self.spriteBackground.add(self.background)
+        self.fireball = Fireball.Fireball(0, -200, 30, 30,0,0)
+        self.spritesFireball.add(self.fireball)
+        """self.piedra = Piedra.Piedra(random.randrange(1300), 660)"""
+        self.piedra = Piedra.Piedra(-100, 660)
+        self.spritesPiedra.add(self.piedra)
         #
         self.threadFinalizado = True
 

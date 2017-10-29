@@ -77,12 +77,10 @@ class Malvavisco(pygame.sprite.Sprite):
         if key[pygame.K_ESCAPE]:
             self.runningGame=False
 
-        if key[pygame.K_SPACE] and self.rect.y == self.posactual:
-            self.salto = True
-            self.sonidoSalto.play()
-
         if key[pygame.K_w] and self.rect.y == self.posactual:
             self.salto = True
+            if self.rock == False:
+                self.sonidoSalto.play()
 
         if key[pygame.K_d]:
             self.derecha = True

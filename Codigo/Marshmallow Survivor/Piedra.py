@@ -1,4 +1,5 @@
 import pygame
+import Malvavisco
 
 class Piedra(pygame.sprite.Sprite):
     def __init__(self, posicionX, posicionY):
@@ -18,12 +19,16 @@ class Piedra(pygame.sprite.Sprite):
         return pygame.transform.scale(self.path, (30, 30))
 
     def update(self):
-        key = pygame.key.get_pressed()
-
+        #key = pygame.key.get_pressed()
+        self.image = pygame.transform.scale(self.path, (30, 30))
         self.tiempoActiva += 1
-        if(self.tiempoActiva == 180):
-            self.die()
 
     def die(self):
-        self.kill()
-        self.tiempoActiva = 0
+        self.actualizarPosicion(-300, 660)
+
+    def devolverPosicionX(self):
+        return self.rect.x
+
+    def actualizarPosicion(self, posicionX, posicionY):
+        self.rect.x = posicionX
+        self.rect.y = posicionY
