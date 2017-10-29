@@ -19,7 +19,7 @@ class Fireball(pygame.sprite.Sprite):
         self.inversa = False
         self.velocidad = 9
         self.grados = 0
-        self.sonidoColision = pygame.mixer.Sound("Sonidos/colisionFireball.ogg")
+        self.sonidoColision = pygame.mixer.Sound("Sonidos/colisionFireball.wav")
         self.fireballExiste = False
 
 
