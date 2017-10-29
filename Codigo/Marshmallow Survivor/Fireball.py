@@ -76,5 +76,3 @@ class Fireball(pygame.sprite.Sprite):
 
         for image in self.listaAnimacion:
             image = pygame.transform.rotate(image, self.grados+90)
-
-
