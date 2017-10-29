@@ -23,12 +23,13 @@ class Nivel():
         self.alto = alto
         self.ancho = ancho
         self.fps = 60
-        self.estadoFireball = False
         self.colores = { "RED" : (255,0,0), "BLACK" : (0,0,0) }
         self.iteradorParaTexto = 0
         self.textoPantallaDeCarga = "Cargando"
         self.cont = 0
         self.pausado = False
+        self.fireball = Fireball.Fireball(0, -200, 30, 30,0,0)
+        self.spritesFireball.add(self.fireball)
         self.piedraVisible = False
         self.contadorPiedra = 0
 
@@ -46,19 +47,22 @@ class Nivel():
             self.cont += 1
             self.contadorPiedra += 1
 
-            self.piedraVisible = False
-            if(self.contadorPiedra == 720 and self.piedraVisible == False):
+            if self.contadorPiedra == 720:
                 self.piedraVisible = True
                 self.contadorPiedra = 0
                 self.piedra = Piedra.Piedra(random.randrange(1300), 660)
                 self.spritesPiedra.add(self.piedra)
                 self.contadorPiedra = 0
 
+            if self.piedraVisible == True:
+                if pygame.sprite.collide_rect(self.piedra, self.malvavisco):
+                    self.malvavisco.rock = True
+                    self.piedra.die()
+
             if(self.cont == 180):
-                self.fireball = Fireball.Fireball(500, 0, 30, 30, self.malvavisco.devolverPosicionX(),
-                    self.malvavisco.devolverPosicionY())
-                self.spritesFireball.add(self.fireball)
+                self.fireball.actualizarPosicion(self.chef.rect.centerx-40, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
                 self.cont = 0
+                self.fireball.fireballExiste = True
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
@@ -67,16 +71,18 @@ class Nivel():
                     if event.key == pygame.K_p:
                         self.pausado = not self.pausado
 
-            if self.estadoFireball:
+            if self.fireball.fireballExiste:
                 hits = pygame.sprite.spritecollide(self.malvavisco, self.spritesFireball,
                     False, pygame.sprite.collide_circle)
                 if hits:
-                    fireball.sonidoColision.play()
-                    fireball.kill()
+                    self.fireball.sonidoColision.play()
+                    self.fireball.die(True)
 
             if not self.pausado:
                 self.spritesPrincipales.update()
-                self.spritesFireball.update()
+
+                if self.fireball.fireballExiste:
+                    self.spritesFireball.update()
                 self.spritesPiedra.update()
 
             self.spriteBackground.draw(self.screen)
