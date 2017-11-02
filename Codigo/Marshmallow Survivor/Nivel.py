@@ -25,8 +25,7 @@ class Nivel():
         self.textoPantallaDeCarga = "Cargando"
         self.cont = 0
         self.pausado = False
-        self.fireball = Fireball.Fireball(0, -200, 30, 30,0,0)
-        self.spritesFireball.add(self.fireball)
+
 
 
     def iniciar(self):
@@ -84,7 +83,8 @@ class Nivel():
         self.spriteBackground.add(self.background)
         self.piedra = Piedra.Piedra(500, 0)
         self.spritesPiedra.add(self.piedra)
-
+        self.fireball = Fireball.Fireball(0, -200, 30, 30,0,0)
+        self.spritesFireball.add(self.fireball)
 
         #
         self.threadFinalizado = True
