@@ -1,5 +1,4 @@
 import pygame
-import random
 import Malvavisco
 import Chef
 import Background
@@ -7,8 +6,6 @@ import threading
 import time
 import Fireball
 import Piedra
-
-#0 a 1300
 
 class Nivel():
 
@@ -29,9 +26,7 @@ class Nivel():
         self.cont = 0
         self.pausado = False
 
-        self.piedraVisible = False
-        self.contadorPiedra = 0
->>>>>>> 61fccb53424ac64cd533f87893b1075fa02800ca
+
 
     def iniciar(self):
         self.pantallaDeCarga()
@@ -45,18 +40,6 @@ class Nivel():
         while ejecutandoNivel:
             self.clock.tick(self.fps)
             self.cont += 1
-            self.contadorPiedra += 1
-
-            if(self.contadorPiedra % 180 == 0):
-                self.piedra.die()
-
-            if (self.contadorPiedra % 720 == 0) and (not self.malvavisco.rock):
-                self.piedra.actualizarPosicion(random.randrange(1300), 660)
-
-            if 0 <= self.piedra.rect.x <= 1300:
-                if pygame.sprite.collide_rect(self.piedra, self.malvavisco):
-                    self.malvavisco.rock = True
-                    self.piedra.die()
 
             if(self.cont == 180):
                 self.fireball.actualizarPosicion(self.chef.rect.centerx-40, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
@@ -71,15 +54,13 @@ class Nivel():
                         self.pausado = not self.pausado
 
             if self.fireball.fireballExiste:
-                hits = pygame.sprite.spritecollide(self.malvavisco, self.spritesFireball,
-                    False, pygame.sprite.collide_circle)
+                hits = pygame.sprite.spritecollide(self.malvavisco, self.spritesFireball,False, pygame.sprite.collide_circle)
                 if hits:
                     self.fireball.sonidoColision.play()
                     self.fireball.die(True)
 
             if not self.pausado:
                 self.spritesPrincipales.update()
-                self.spritesPiedra.update()
                 if self.fireball.fireballExiste:
                     self.spritesFireball.update()
 
@@ -100,17 +81,11 @@ class Nivel():
         self.spritesPrincipales.add(self.chef)
         self.background = Background.Background(0,0,1360,760)
         self.spriteBackground.add(self.background)
-        self.fireball = Fireball.Fireball(0, -200, 30, 30,0,0)
-        self.spritesFireball.add(self.fireball)
-        """self.piedra = Piedra.Piedra(random.randrange(1300), 660)"""
-        self.piedra = Piedra.Piedra(-100, 660)
+        self.piedra = Piedra.Piedra(500, 0)
         self.spritesPiedra.add(self.piedra)
-<<<<<<< HEAD
         self.fireball = Fireball.Fireball(0, -200, 30, 30,0,0)
         self.spritesFireball.add(self.fireball)
 
-=======
->>>>>>> 61fccb53424ac64cd533f87893b1075fa02800ca
         #
         self.threadFinalizado = True
 
