@@ -6,7 +6,7 @@ import Nivel
 
 ALTO = 1360
 ANCHO = 768
-sonido = pygame.mixer.Sound("Sonidos/musicaMenu.wav")
+sonido = pygame.mixer.Sound("Sonidos/musicaMenu2.wav")
 elementos =[]
 PATH_ANIMACION_MENU = "imagenes/Menu/AnimacionMenu/"
 
