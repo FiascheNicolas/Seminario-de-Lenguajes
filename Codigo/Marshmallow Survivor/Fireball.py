@@ -22,7 +22,6 @@ class Fireball(pygame.sprite.Sprite):
         self.sonidoColision = pygame.mixer.Sound("Sonidos/colisionFireball.wav")
         self.fireballExiste = False
 
-
     def update(self):
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (50,80))
 

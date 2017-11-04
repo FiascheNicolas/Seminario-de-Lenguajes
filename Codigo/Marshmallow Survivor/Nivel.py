@@ -57,7 +57,7 @@ class Nivel():
                 if pygame.sprite.collide_rect(self.piedra, self.chef):
                     print "hit"
 
-            if self.contadorPiedra % 180 == 0 and not self.piedra.thrown:
+            if self.contadorPiedra % 100 == 0 and not self.piedra.thrown:
                 self.piedra.die()
 
             if self.contadorPiedra % 720 == 0 and not self.malvavisco.rock and not self.piedra.thrown:
@@ -111,11 +111,10 @@ class Nivel():
         self.background = Background.Background(0,0,1360,760)
         self.spriteBackground.add(self.background)
         self.fireball = Fireball.Fireball(0, -200, 30, 30,0,0)
+        self.fireball.actualizarPosicion(self.chef.rect.centerx-1300, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
         self.spritesFireball.add(self.fireball)
         self.piedra = Piedra.Piedra(-100, 660)
         self.spritesPiedra.add(self.piedra)
-        self.fireball = Fireball.Fireball(0, -200, 30, 30,0,0)
-        self.spritesFireball.add(self.fireball)
         #
         self.threadFinalizado = True
 
