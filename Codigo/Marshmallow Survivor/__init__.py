@@ -6,7 +6,7 @@ import Nivel
 
 ALTO = 1360
 ANCHO = 768
-sonido = pygame.mixer.Sound("Sonidos/musicaMenu2.wav")
+sonido = pygame.mixer.Sound("Sonidos/Menu.wav")
 elementos =[]
 PATH_ANIMACION_MENU = "imagenes/Menu/AnimacionMenu/"
 
@@ -136,8 +136,8 @@ def comenzar_nuevo_juego():
     print "Boss jefe"
     global sonido
     sonido.stop()
-    
-    
+
+
     dropLista() #ELIMINO ANIMCACION MENU
     nivel = Nivel.Nivel(screen, ALTO, ANCHO)
     nivel.iniciar()
@@ -154,7 +154,7 @@ def cargarDatos(path):
     while contador != 30:
         elementos.append(pygame.image.load(path + str(contador) + ".png"))
         contador +=1
-    
+
 def salir_del_programa():
     import sys
     print " Chau."
@@ -181,12 +181,12 @@ if __name__ == '__main__':
     menu = Menu(opciones)
     global sonido
     sonido.play(10)
-    
-    
-    
-   
 
-  
+
+
+
+
+
     while not salir:
         for e in pygame.event.get():
             if e.type == pygame.KEYDOWN:
@@ -202,8 +202,3 @@ if __name__ == '__main__':
         posMenu +=1
         if(posMenu==29):
             posMenu=1
-
-
-        
-
-        

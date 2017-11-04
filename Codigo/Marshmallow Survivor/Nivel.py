@@ -26,13 +26,11 @@ class Nivel():
         self.colores = { "RED" : (255,0,0), "BLACK" : (0,0,0) }
         self.iteradorParaTexto = 0
         self.textoPantallaDeCarga = "Cargando"
-        self.cont = 0
+        self.contador = 0
         self.pausado = False
-
         self.piedraVisible = False
         self.piedraSiendoLanzada = False
-        self.contadorPiedra = 0
-
+        self.chefFurioso = False
 
     def iniciar(self):
         self.pantallaDeCarga()
@@ -40,13 +38,12 @@ class Nivel():
         pygame.mixer.init()
         pygame.display.set_caption("Marshmellow Survivor")
         ejecutandoNivel = True
-        pygame.mixer.music.load("Sonidos/Alone.mp3")
+        pygame.mixer.music.load("Sonidos/Nivel.wav")
         pygame.mixer.music.play(-1)
 
         while ejecutandoNivel:
             self.clock.tick(self.fps)
-            self.cont += 1
-            self.contadorPiedra += 1
+            self.contador += 1
 
             if self.malvavisco.thrown:
                 self.piedra.piedraLanzada(self.malvavisco)
@@ -57,21 +54,30 @@ class Nivel():
                 if pygame.sprite.collide_rect(self.piedra, self.chef):
                     print "hit"
 
-            if self.contadorPiedra % 100 == 0 and not self.piedra.thrown:
-                self.piedra.die()
+            if self.contador % 180 == 0 and not self.chefFurioso:
+                self.fireball.actualizarPosicion(self.chef.rect.centerx-40, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
+                self.chef.attacking = True
+                self.fireball.fireballExiste = True
+                if not self.piedra.thrown:
+                    self.piedra.die()
 
-            if self.contadorPiedra % 720 == 0 and not self.malvavisco.rock and not self.piedra.thrown:
+            if self.contador % 720 == 0 and not self.malvavisco.rock and not self.piedra.thrown and not self.chefFurioso:
                 self.piedra.actualizarPosicion(random.randrange(1300), 660)
+
+            if self.contador % 1000 == 0:
+                self.chefFurioso = True
+                if self.contador % 2000 == 0:
+                    self.chefFurioso = False
+
+            if self.chefFurioso and self.contador % 100 == 0:
+                self.chef.attacking = True
+                self.fireball.actualizarPosicion(self.chef.rect.centerx-40, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
+                self.fireball.fireballExiste = True
 
             if 0 <= self.piedra.rect.x <= 1300 and not self.piedra.thrown:
                 if pygame.sprite.collide_rect(self.piedra, self.malvavisco) and not self.malvavisco.salto:
                     self.malvavisco.rock = True
                     self.piedra.die()
-
-            if self.cont == 180:
-                self.fireball.actualizarPosicion(self.chef.rect.centerx-40, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
-                self.cont = 0
-                self.fireball.fireballExiste = True
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
