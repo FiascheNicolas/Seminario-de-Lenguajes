@@ -28,9 +28,11 @@ class Nivel():
         self.textoPantallaDeCarga = "Cargando"
         self.cont = 0
         self.pausado = False
+
         self.piedraVisible = False
         self.piedraSiendoLanzada = False
         self.contadorPiedra = 0
+>>>>>>> 61fccb53424ac64cd533f87893b1075fa02800ca
 
     def iniciar(self):
         self.pantallaDeCarga()
@@ -113,6 +115,12 @@ class Nivel():
         """self.piedra = Piedra.Piedra(random.randrange(1300), 660)"""
         self.piedra = Piedra.Piedra(-100, 660)
         self.spritesPiedra.add(self.piedra)
+<<<<<<< HEAD
+        self.fireball = Fireball.Fireball(0, -200, 30, 30,0,0)
+        self.spritesFireball.add(self.fireball)
+
+=======
+>>>>>>> 61fccb53424ac64cd533f87893b1075fa02800ca
         #
         self.threadFinalizado = True
 

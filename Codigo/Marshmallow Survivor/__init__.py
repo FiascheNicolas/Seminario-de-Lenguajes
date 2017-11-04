@@ -6,7 +6,9 @@ import Nivel
 
 ALTO = 1360
 ANCHO = 768
-sonido = pygame.mixer.Sound("Sonidos/musicaMenu.wav")
+sonido = pygame.mixer.Sound("Sonidos/musicaMenu2.wav")
+elementos =[]
+PATH_ANIMACION_MENU = "imagenes/Menu/AnimacionMenu/"
 
 
 class Opcion:
@@ -117,6 +119,7 @@ class Menu:
             o.actualizar()
 
     def imprimir(self, screen):
+
         "Imprime sobre 'screen' el texto de cada opción del menú."
 
         self.cursor.imprimir(screen)
@@ -124,10 +127,18 @@ class Menu:
         for opcion in self.opciones:
             opcion.imprimir(screen)
 
+
+def dropLista():
+    global elementos
+    for i in elementos:
+        elementos.remove(i)
 def comenzar_nuevo_juego():
     print "Boss jefe"
     global sonido
     sonido.stop()
+    
+    
+    dropLista() #ELIMINO ANIMCACION MENU
     nivel = Nivel.Nivel(screen, ALTO, ANCHO)
     nivel.iniciar()
     salir_del_programa()
@@ -137,7 +148,13 @@ def mostrar_opciones():
 
 def creditos():
     print " Pirulin."
-
+def cargarDatos(path):
+    global elementos
+    contador=1
+    while contador != 30:
+        elementos.append(pygame.image.load(path + str(contador) + ".png"))
+        contador +=1
+    
 def salir_del_programa():
     import sys
     print " Chau."
@@ -157,15 +174,19 @@ if __name__ == '__main__':
     pygame.font.init()
     screen = pygame.display.set_mode((ALTO, ANCHO))
     pygame.display.toggle_fullscreen()
-    fondo = pygame.image.load("imagenes/Menu/fondo 2.0.png").convert()
+    cargarDatos(PATH_ANIMACION_MENU)
+    global elementos
+    fondo = pygame.transform.scale(elementos[0],(ALTO,ANCHO))
+    posMenu=1
     menu = Menu(opciones)
     global sonido
     sonido.play(10)
+    
+    
+    
+   
 
-    #Para iniciar el nivel automaticamente
-    #Nivel.iniciar(screen,ALTO,ANCHO)
-    #salir_del_programa()
-    ######
+  
     while not salir:
         for e in pygame.event.get():
             if e.type == pygame.KEYDOWN:
@@ -177,3 +198,12 @@ if __name__ == '__main__':
         menu.imprimir(screen)
         pygame.display.flip()
         pygame.time.delay(10)
+        fondo = pygame.transform.scale(elementos[posMenu],(ALTO,ANCHO))
+        posMenu +=1
+        if(posMenu==29):
+            posMenu=1
+
+
+        
+
+        
