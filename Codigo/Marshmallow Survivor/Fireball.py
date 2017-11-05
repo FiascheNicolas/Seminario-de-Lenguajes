@@ -22,6 +22,8 @@ class Fireball(pygame.sprite.Sprite):
         self.grados = 0
         self.sonidoColision = pygame.mixer.Sound("Sonidos/colisionFireball.ogg")
         self.fireballExiste = False
+        self.dx=0
+        self.dy=0
 
     def cargarImagen(self, posMalvaviscoX, posMalvaviscoY, x, y):
             contador = 0
