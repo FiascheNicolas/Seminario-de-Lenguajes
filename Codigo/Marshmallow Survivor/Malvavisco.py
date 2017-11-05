@@ -27,6 +27,8 @@ class Malvavisco(pygame.sprite.Sprite):
         self.posIdle = 0
         self.posJump = 0
         self.posThrowRock=0
+        self.posRunRock=0
+        self.posIdleRock=0
         #
         #Booleanos
         self.run = False
@@ -43,16 +45,7 @@ class Malvavisco(pygame.sprite.Sprite):
         self.ancho = ancho
         self.velocidad = 3
         self.distanciaSalto = 100
-        self.delayIdle = 0
-        self.delayIdleInvertido = 0
-        self.delayRun = 0
-        self.delayRunInvertido = 0
-        self.delayIdleRock = 0
-        self.delayIdleRockInvertido = 0
-        self.delayRunRock = 0
-        self.delayRunRockInvertido = 0
-        self.delayThrowRock = 0
-        self.delayThrowRockInvertido = 0
+       
         #
         #Carga de animaciones y recursos
         self.animacionRun = self.cargarAnimacion(RUN, PATH_RUN)
@@ -80,9 +73,7 @@ class Malvavisco(pygame.sprite.Sprite):
             self.runningGame=False
 
 
-        if key[pygame.K_SPACE] and self.rect.y == self.posactual:
-            self.salto = True
-            self.sonidoSalto.play()
+       
 
         if key[pygame.K_w] and self.rect.y == self.posactual:
             self.salto = True
@@ -181,7 +172,7 @@ class Malvavisco(pygame.sprite.Sprite):
 
         self.image = pygame.transform.scale((pygame.transform.flip(self.animacionIdleRock[self.posIdleRock],True,False)), (self.alto, self.ancho))
         self.posIdleRock += 1
-        if (self.posIdleRock == IDLE):
+        if (self.posIdleRock == IDLE + 1):
             self.posIdleRock=0
         
             
@@ -190,13 +181,13 @@ class Malvavisco(pygame.sprite.Sprite):
     def actualizarIdleRock(self):
 
 
-        self.image = pygame.transform.scale(self.animacionIdleRock[self.posIdle], (self.alto, self.ancho))
+        self.image = pygame.transform.scale(self.animacionIdleRock[self.posIdleRock], (self.alto, self.ancho))
+        self.posIdleRock +=1
+        if(self.posIdleRock==IDLE + 1):
+            self.posIdleRock=0
 
         
-        self.delayIdleRock += 1
-        if(self.delayIdleRock == 3):
-            self.delayIdleRock = 0
-            self.posIdle += 1
+        
 
             
             
@@ -246,16 +237,16 @@ class Malvavisco(pygame.sprite.Sprite):
             
 
     def actualizarRunRockInvertida(self):
-        self.image = pygame.transform.scale((pygame.transform.flip(self.animacionRunRock[self.posRun],True,False)),(self.alto,self.ancho))
-        self.posRun +=1
-        if(self.posRun == RUN):
-            self.posRun = 0
+        self.image = pygame.transform.scale((pygame.transform.flip(self.animacionRunRock[self.posRunRock],True,False)),(self.alto,self.ancho))
+        self.posRunRock +=1
+        if(self.posRunRock == RUN):
+            self.posRunRock = 0
       
             
 
     def actualizarRunRock(self):
 
-        self.image = pygame.transform.scale(self.animacionRunRock[self.posRun], (self.alto, self.ancho))
+        self.image = pygame.transform.scale(self.animacionRunRock[self.posRunRock], (self.alto, self.ancho))
         self.posRunRock +=1
         if(self.posRunRock == RUN):
             self.posRunRock = 0

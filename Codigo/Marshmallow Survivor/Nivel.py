@@ -6,7 +6,7 @@ import threading
 import time
 import Fireball
 import Piedra
-
+import random
 
 
 #0 a 1300
