@@ -7,6 +7,12 @@ import time
 import Fireball
 import Piedra
 
+<<<<<<< HEAD
+=======
+#0 a 1300
+#
+
+>>>>>>> 2aab71af670d664645a3baf0edd10cf8f899e94b
 class Nivel():
 
     def __init__(self, screenMenu, alto, ancho):
