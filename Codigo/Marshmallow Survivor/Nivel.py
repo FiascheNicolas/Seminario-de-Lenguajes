@@ -7,12 +7,12 @@ import time
 import Fireball
 import Piedra
 
-<<<<<<< HEAD
-=======
+
+
 #0 a 1300
 #
 
->>>>>>> 2aab71af670d664645a3baf0edd10cf8f899e94b
+
 class Nivel():
 
     def __init__(self, screenMenu, alto, ancho):
@@ -31,14 +31,13 @@ class Nivel():
         self.textoPantallaDeCarga = "Cargando"
         self.contador = 0
         self.pausado = False
-<<<<<<< HEAD
 
 
-=======
+
         self.piedraVisible = False
         self.piedraSiendoLanzada = False
         self.chefFurioso = False
->>>>>>> fbe55cf555630dc0b0bef982175573eb8c33a3b8
+
 
     def iniciar(self):
         self.pantallaDeCarga()
@@ -51,9 +50,9 @@ class Nivel():
 
         while ejecutandoNivel:
             self.clock.tick(self.fps)
-<<<<<<< HEAD
+
             self.cont += 1
-=======
+
             self.contador += 1
 
             if self.malvavisco.thrown:
@@ -71,7 +70,7 @@ class Nivel():
                 self.fireball.fireballExiste = True
                 if not self.piedra.thrown:
                     self.piedra.die()
->>>>>>> fbe55cf555630dc0b0bef982175573eb8c33a3b8
+
 
             if self.contador % 720 == 0 and not self.malvavisco.rock and not self.piedra.thrown and not self.chefFurioso:
                 self.piedra.actualizarPosicion(random.randrange(1300), 660)
@@ -126,19 +125,18 @@ class Nivel():
         self.spritesPrincipales.add(self.chef)
         self.background = Background.Background(0,0,1360,760)
         self.spriteBackground.add(self.background)
-<<<<<<< HEAD
+
         self.piedra = Piedra.Piedra(500, 0)
         self.spritesPiedra.add(self.piedra)
         self.fireball = Fireball.Fireball(0, -200, 30, 30,0,0)
         self.spritesFireball.add(self.fireball)
 
-=======
         self.fireball = Fireball.Fireball(0, -200, 30, 30,0,0)
         self.fireball.actualizarPosicion(self.chef.rect.centerx-1300, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
         self.spritesFireball.add(self.fireball)
         self.piedra = Piedra.Piedra(-100, 660)
         self.spritesPiedra.add(self.piedra)
->>>>>>> fbe55cf555630dc0b0bef982175573eb8c33a3b8
+
         #
         self.threadFinalizado = True
 

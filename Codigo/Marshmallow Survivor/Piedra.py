@@ -10,11 +10,11 @@ class Piedra(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-<<<<<<< HEAD
-=======
+
+
         self.thrown = False
         self.grados = 0
->>>>>>> fbe55cf555630dc0b0bef982175573eb8c33a3b8
+
 
     def cargarImagen(self):
         self.path = pygame.image.load("imagenes/Background/Piedra.png")
@@ -22,12 +22,12 @@ class Piedra(pygame.sprite.Sprite):
         return pygame.transform.scale(self.path, (30, 30))
 
     def update(self):
-<<<<<<< HEAD
+
         key = pygame.key.get_pressed()
 
         if(self.rect.y != 660):
             self.rect.y += 2
-=======
+
         #key = pygame.key.get_pressed()
         self.image = pygame.transform.scale(self.path, (30, 30))
         self.grados += 3
@@ -54,4 +54,4 @@ class Piedra(pygame.sprite.Sprite):
 
     def haveBeenThrown(self):
         return self.thrown
->>>>>>> fbe55cf555630dc0b0bef982175573eb8c33a3b8
+
