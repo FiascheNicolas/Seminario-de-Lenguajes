@@ -6,7 +6,7 @@ import Nivel
 RUN = 35 #35
 IDLE = 39 #39 #18
 JUMP = 1 #1
-ROCK = 23 #22 #11
+ROCK = 24 #22 #11
 
 PATH_RUN = "imagenes/AnimacionesMalvavisco/Run/"
 PATH_IDLE = "imagenes/AnimacionesMalvavisco/Idle/"
@@ -79,20 +79,20 @@ class Malvavisco(pygame.sprite.Sprite):
         if key[pygame.K_ESCAPE]:
             self.runningGame=False
 
-<<<<<<< HEAD
+
         if key[pygame.K_SPACE] and self.rect.y == self.posactual:
             self.salto = True
             self.sonidoSalto.play()
 
         if key[pygame.K_w] and self.rect.y == self.posactual:
             self.salto = True
-=======
+
         if not self.rock:
             if key[pygame.K_w] and self.rect.y == self.posactual:
                 self.salto = True
                 if self.rock == False:
                     self.sonidoSalto.play()
->>>>>>> fbe55cf555630dc0b0bef982175573eb8c33a3b8
+
 
         if key[pygame.K_d]:
             self.derecha = True
@@ -106,13 +106,13 @@ class Malvavisco(pygame.sprite.Sprite):
             if(self.rect.x>-61):
                 self.rect.x -=self.velocidad
 
-<<<<<<< HEAD
-=======
+
+
         if self.rock:
             if key[pygame.K_SPACE]:
                 self.throwing = True
 
->>>>>>> fbe55cf555630dc0b0bef982175573eb8c33a3b8
+
         if not self.rock:                   # Si no tengo una piedra en la mano#
             if not self.salto:              # si no estoy saltando#
                 if self.derecha:            # si esta mirando a la derecha#
@@ -173,81 +173,56 @@ class Malvavisco(pygame.sprite.Sprite):
                         self.actualizarRunRockInvertida()
                         if(not key[pygame.K_d]):
                             self.run=False
-
+                if(self.throwing):
+                    self.actualizarThrowRock()
     def actualizarIdleRockInvertida(self):
-<<<<<<< HEAD
-        self.image = pygame.transform.scale((pygame.transform.flip(self.animacionIdleRock[self.posIdle],True,False)), (self.alto, self.ancho))
-        self.delayIdleRockInvertido += 1
-        if(self.delayIdleRockInvertido == 3):
-            self.delayIdleRockInvertido = 0
-            self.posIdle += 1
 
-            if (self.posIdle == IDLE):
-                self.posIdle=0
-=======
+        
+
         self.image = pygame.transform.scale((pygame.transform.flip(self.animacionIdleRock[self.posIdleRock],True,False)), (self.alto, self.ancho))
         self.posIdleRock += 1
-
         if (self.posIdleRock == IDLE):
             self.posIdleRock=0
         
             
->>>>>>> 2aab71af670d664645a3baf0edd10cf8f899e94b
+
 
     def actualizarIdleRock(self):
-<<<<<<< HEAD
+
 
         self.image = pygame.transform.scale(self.animacionIdleRock[self.posIdle], (self.alto, self.ancho))
-=======
-        self.image = pygame.transform.scale(self.animacionIdleRock[self.posIdleRock], (self.alto, self.ancho))
-<<<<<<< HEAD
->>>>>>> fbe55cf555630dc0b0bef982175573eb8c33a3b8
+
+        
         self.delayIdleRock += 1
         if(self.delayIdleRock == 3):
             self.delayIdleRock = 0
             self.posIdle += 1
 
-            if (self.posIdle==IDLE):
-                self.posIdle=0
-
-=======
-        self.posIdleRock += 1
-
-        if (self.posIdleRock==IDLE):
-            self.posIdleRock=0
-       
             
->>>>>>> 2aab71af670d664645a3baf0edd10cf8f899e94b
+            
+
 
     def actualizarThrowRock(self):
         self.image = pygame.transform.scale(self.animacionThrowRock[self.posThrowRock],(self.alto,self.ancho))
-        self.delayThrowRock += 1
+        self.posThrowRock +=1
+        if(self.posThrowRock==ROCK):
+            self.posThrowRock=0
+            self.throwing = False
+            self.rock = False
+            self.thrown = True
 
-<<<<<<< HEAD
-        if(self.delayThrowRock==3):
-            self.delayThrowRock=0
-            self.posThrowRock +=1
 
-            if (self.posThrowRock==ROCK):
-                self.posThrowRock=0
-=======
-        while self.posThrowRock != (ROCK - 1):
-            self.posThrowRock += 1
 
-        self.throwing = False
-        self.rock = False
-        self.thrown = True
->>>>>>> fbe55cf555630dc0b0bef982175573eb8c33a3b8
 
     def actualizarThrowRockInvertido(self):
         self.image = pygame.transform.scale((pygame.transform.flip(self.animacionThrowRock[self.posThrowRock],True,False)),(self.alto,self.ancho))
-        self.delayThrowRockInvertido += 1
-
-        if(self.delayThrowRockInvertido == 3):
-            self.delayThrowRockInvertido = 0
-            self.posThrowRock += 1
-            if (self.posThrowRock == ROCK):
-                self.posThrowRock = 0
+        self.posThrowRock +=1
+        if(self.posThrowRock==ROCK):
+            self.posThrowRock=0
+            self.throwing = False
+            self.rock = False
+            self.thrown = True
+       
 
     def actualizarIdle(self):
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
@@ -279,27 +254,21 @@ class Malvavisco(pygame.sprite.Sprite):
             
 
     def actualizarRunRock(self):
-<<<<<<< HEAD
+
         self.image = pygame.transform.scale(self.animacionRunRock[self.posRun], (self.alto, self.ancho))
-
-=======
-        self.image = pygame.transform.scale(self.animacionRunRock[self.posRunRock], (self.alto, self.ancho))
-<<<<<<< HEAD
->>>>>>> fbe55cf555630dc0b0bef982175573eb8c33a3b8
-        self.delayRunRock += 1
-
-        if(self.delayRunRock == 3):
-            self.delayRunRock=0
-            self.posRun +=1
-            if(self.posRun == RUN):
-                self.posRun = 0
-=======
         self.posRunRock +=1
         if(self.posRunRock == RUN):
             self.posRunRock = 0
+
+
+    
+
+           
+
+        
        
             
->>>>>>> 2aab71af670d664645a3baf0edd10cf8f899e94b
+
 
     def actualizarRun(self):
         self.image = pygame.transform.scale(self.animacionRun[self.posRun], (self.alto, self.ancho))
