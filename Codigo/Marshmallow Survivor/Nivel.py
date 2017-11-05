@@ -9,6 +9,7 @@ import Fireball
 import Piedra
 
 #0 a 1300
+#
 
 class Nivel():
 
