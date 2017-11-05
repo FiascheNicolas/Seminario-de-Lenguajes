@@ -22,7 +22,7 @@ class Chef(pygame.sprite.Sprite):
         #Booleanos
         self.idle = True
         self.inversa = False
-        self.attacking =True
+        self.attacking = False
         #
         #Configurables
         self.delayIdle = 0
@@ -58,6 +58,7 @@ class Chef(pygame.sprite.Sprite):
             self.posAtack +=1
             if (self.posAtack == ATACK):
                 self.posAtack = 0
+                self.attacking = False
 
     def actualizarIdle(self):
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
