@@ -31,6 +31,7 @@ class Nivel():
         self.piedraVisible = False
         self.piedraSiendoLanzada = False
         self.chefFurioso = False
+        self.finJuego = False
 
     def iniciar(self):
         self.pantallaDeCarga()
@@ -52,7 +53,11 @@ class Nivel():
             if self.piedra.thrown:
                 self.malvavisco.thrown = False
                 if pygame.sprite.collide_rect(self.piedra, self.chef):
-                    print "hit"
+                    self.piedra.actualizarPosicion(-200,600)
+                    self.chef.vidas -= 1
+                    if self.chef.vidas == 3:
+                        self.juegoGanado()
+                        self.finJuego = True
 
             if self.contador % 180 == 0 and not self.chefFurioso:
                 self.fireball.actualizarPosicion(self.chef.rect.centerx-40, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
@@ -100,9 +105,10 @@ class Nivel():
                     self.spritesFireball.update()
 
             self.spriteBackground.draw(self.screen)
-            self.spritesPrincipales.draw(self.screen)
-            self.spritesPiedra.draw(self.screen)
-            self.spritesFireball.draw(self.screen)
+            if not self.finJuego:
+                self.spritesPrincipales.draw(self.screen)
+                self.spritesPiedra.draw(self.screen)
+                self.spritesFireball.draw(self.screen)
 
             if self.pausado:
                 self.drawPauseScreen("PAUSA", 105,(255,0,0), self.alto / 2, self.ancho / 2)
@@ -121,7 +127,6 @@ class Nivel():
         self.spritesFireball.add(self.fireball)
         self.piedra = Piedra.Piedra(-100, 660)
         self.spritesPiedra.add(self.piedra)
-        #
         self.threadFinalizado = True
 
     def drawText(self, surf, text, size, x, y):
@@ -160,3 +165,11 @@ class Nivel():
             text_rect = text_surface.get_rect()
             text_rect.center = (x,y)
             self.screen.blit(text_surface,text_rect)
+
+    def juegoGanado(self):
+        pygame.mixer.music.load("Sonidos/juegoGanado.wav")
+        pygame.mixer.music.play(1)
+        self.malvavisco.kill()
+        self.fireball.kill()
+        self.background.fondo = pygame.image.load("imagenes/FinalJuego/Victory.png").convert_alpha()
+        self.background.image = pygame.transform.scale(self.background.fondo, (1360,760)) # el alto y ancho debe ser el mismo q del screen

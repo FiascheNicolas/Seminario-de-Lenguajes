@@ -84,9 +84,5 @@ class Fireball(pygame.sprite.Sprite):
         self.grados = degrees(rads)
         self.animacionIdle = self.cargarImagen(posMalvaX,posMalvaY,posChefX,posChefY)
 
-        #for image in self.listaAnimacion:
-            #self.listaAnimacion.remove(image)
-
-            #cont += 1
 
 

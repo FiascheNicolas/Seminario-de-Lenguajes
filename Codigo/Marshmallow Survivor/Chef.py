@@ -14,6 +14,7 @@ class Chef(pygame.sprite.Sprite):
         self.ancho = ancho
         self.posIdle = 0
         self.posAtack=0
+        self.vidas = 4
         #
         #Carga de animaciones
         self.animacionIdle = self.cargarAnimacion(IDLE,PATH_IDLE)
@@ -55,8 +56,8 @@ class Chef(pygame.sprite.Sprite):
         if (self.posAtack == ATACK):
             self.posAtack = 0
             self.attacking = False
-       
-            
+
+
 
     def actualizarIdle(self):
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
@@ -64,8 +65,8 @@ class Chef(pygame.sprite.Sprite):
         if (self.posIdle == IDLE +1):
             self.posIdle = 0
 
-        
-        
+
+
 
     def cargarAnimacion(self, cantidad, path):
         contador = 0
