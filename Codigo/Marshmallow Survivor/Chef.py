@@ -1,6 +1,6 @@
 import pygame
-IDLE = 10
-ATACK=10
+IDLE = 29
+ATACK=38
 PATH_IDLE = "imagenes/AnimacionesChef/Idle/"
 PATH_ATACK = "imagenes/AnimacionesChef/atack/"
 class Chef(pygame.sprite.Sprite):
@@ -51,24 +51,21 @@ class Chef(pygame.sprite.Sprite):
 
     def actualizarAtack(self):
         self.image = pygame.transform.scale(self.animacionAtack[self.posAtack], (self.alto, self.ancho))
-
-        self.delayAtack += 1
-        if(self.delayAtack == 5):
-            self.delayAtack = 0
-            self.posAtack +=1
-            if (self.posAtack == ATACK):
-                self.posAtack = 0
-                self.attacking = False
+        self.posAtack +=1
+        if (self.posAtack == ATACK):
+            self.posAtack = 0
+            self.attacking = False
+       
+            
 
     def actualizarIdle(self):
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
+        self.posIdle += 1
+        if (self.posIdle == IDLE +1):
+            self.posIdle = 0
 
-        self.delayIdle += 1
-        if(self.delayIdle == 4):
-            self.delayIdle = 0
-            self.posIdle += 1
-            if (self.posIdle == IDLE +1):
-                self.posIdle = 0
+        
+        
 
     def cargarAnimacion(self, cantidad, path):
         contador = 0
