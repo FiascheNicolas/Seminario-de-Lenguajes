@@ -3,6 +3,8 @@ IDLE = 29
 ATACK=38
 PATH_IDLE = "imagenes/AnimacionesChef/Idle/"
 PATH_ATACK = "imagenes/AnimacionesChef/atack/"
+RED=(255,0,0)
+
 class Chef(pygame.sprite.Sprite):
 
     def __init__(self, x, y, alto, ancho):
@@ -33,6 +35,8 @@ class Chef(pygame.sprite.Sprite):
         #Settings de sprite
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
         self.rect = self.image.get_rect()
+        self.radius = int(self.rect.width/8)
+        pygame.draw.circle(self.image,RED,self.rect.center,self.radius)
         self.rect.x = x
         self.rect.y = y
 

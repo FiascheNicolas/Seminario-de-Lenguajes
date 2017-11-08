@@ -52,7 +52,9 @@ class Nivel():
 
             if self.piedra.thrown:
                 self.malvavisco.thrown = False
-                if pygame.sprite.collide_rect(self.piedra, self.chef):
+                hitsChef = pygame.sprite.spritecollide(self.chef, self.spritesPiedra, False,
+                        pygame.sprite.collide_circle)
+                if hitsChef:
                     self.piedra.actualizarPosicion(-200,600)
                     self.chef.vidas -= 1
                     if self.chef.vidas == 3:
@@ -66,7 +68,7 @@ class Nivel():
 
             if self.chefFurioso and self.contador % 100 == 0:
                 self.chef.attacking = True
-                
+
             if self.chef.attacking:
                 if self.chef.throwingFireball:
                     self.fireball.actualizarPosicion(self.chef.rect.centerx-40, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
