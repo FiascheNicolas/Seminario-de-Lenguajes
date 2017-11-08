@@ -24,6 +24,7 @@ class Chef(pygame.sprite.Sprite):
         self.idle = True
         self.inversa = False
         self.attacking = False
+        self.throwingFireball = False
         #
         #Configurables
         self.delayIdle = 0
@@ -52,21 +53,21 @@ class Chef(pygame.sprite.Sprite):
 
     def actualizarAtack(self):
         self.image = pygame.transform.scale(self.animacionAtack[self.posAtack], (self.alto, self.ancho))
-        self.posAtack +=1
+        self.posAtack += 1
+
         if (self.posAtack == ATACK):
             self.posAtack = 0
             self.attacking = False
+            self.throwingFireball = False
 
-
+        if (self.posAtack == ATACK - 1):
+            self.throwingFireball = True
 
     def actualizarIdle(self):
         self.image = pygame.transform.scale(self.animacionIdle[self.posIdle], (self.alto, self.ancho))
         self.posIdle += 1
         if (self.posIdle == IDLE +1):
             self.posIdle = 0
-
-
-
 
     def cargarAnimacion(self, cantidad, path):
         contador = 0

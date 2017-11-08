@@ -60,11 +60,17 @@ class Nivel():
                         self.finJuego = True
 
             if self.contador % 180 == 0 and not self.chefFurioso:
-                self.fireball.actualizarPosicion(self.chef.rect.centerx-40, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
                 self.chef.attacking = True
-                self.fireball.fireballExiste = True
                 if not self.piedra.thrown:
                     self.piedra.die()
+
+            if self.chefFurioso and self.contador % 100 == 0:
+                self.chef.attacking = True
+                
+            if self.chef.attacking:
+                if self.chef.throwingFireball:
+                    self.fireball.actualizarPosicion(self.chef.rect.centerx-40, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
+                    self.fireball.fireballExiste = True
 
             if self.contador % 720 == 0 and not self.malvavisco.rock and not self.piedra.thrown and not self.chefFurioso:
                 self.piedra.actualizarPosicion(random.randrange(1300), 660)
@@ -73,11 +79,6 @@ class Nivel():
                 self.chefFurioso = True
                 if self.contador % 2000 == 0:
                     self.chefFurioso = False
-
-            if self.chefFurioso and self.contador % 100 == 0:
-                self.chef.attacking = True
-                self.fireball.actualizarPosicion(self.chef.rect.centerx-40, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
-                self.fireball.fireballExiste = True
 
             if 0 <= self.piedra.rect.x <= 1300 and not self.piedra.thrown:
                 if pygame.sprite.collide_rect(self.piedra, self.malvavisco) and not self.malvavisco.salto:
