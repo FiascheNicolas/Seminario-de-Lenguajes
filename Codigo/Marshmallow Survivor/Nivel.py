@@ -31,7 +31,7 @@ class Nivel():
         self.textoPantallaDeCarga = "Cargando"
         self.contador = 0
         self.pausado = False
-      
+
 
 
 
@@ -52,7 +52,7 @@ class Nivel():
         while ejecutandoNivel:
             self.clock.tick(self.fps)
 
-            
+
 
             self.contador += 1
 
