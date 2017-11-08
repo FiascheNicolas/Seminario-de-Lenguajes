@@ -1,4 +1,5 @@
 import pygame
+import Malvavisco
 
 class Piedra(pygame.sprite.Sprite):
     def __init__(self, posicionX, posicionY):
@@ -10,11 +11,8 @@ class Piedra(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-
-
         self.thrown = False
         self.grados = 0
-
 
     def cargarImagen(self):
         self.path = pygame.image.load("imagenes/Background/Piedra.png")
@@ -22,12 +20,6 @@ class Piedra(pygame.sprite.Sprite):
         return pygame.transform.scale(self.path, (30, 30))
 
     def update(self):
-
-        key = pygame.key.get_pressed()
-
-        if(self.rect.y != 660):
-            self.rect.y += 2
-
         #key = pygame.key.get_pressed()
         self.image = pygame.transform.scale(self.path, (30, 30))
         self.grados += 3
@@ -35,7 +27,7 @@ class Piedra(pygame.sprite.Sprite):
         if self.thrown:
             self.image = pygame.transform.rotate(self.image, self.grados)
             self.rect.y -= 2
-            if self.rect.y < -5:
+            if self.rect.y < -30:
                 self.thrown = False
 
     def die(self):
@@ -54,4 +46,3 @@ class Piedra(pygame.sprite.Sprite):
 
     def haveBeenThrown(self):
         return self.thrown
-
