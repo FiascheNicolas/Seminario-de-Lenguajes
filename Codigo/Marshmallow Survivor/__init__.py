@@ -3,6 +3,8 @@
 import pygame
 from pygame.locals import *
 import Nivel
+import gc
+
 
 ALTO = 1360
 ANCHO = 768
@@ -130,18 +132,26 @@ class Menu:
 
 def dropLista():
     global elementos
-    for i in elementos:
-        elementos.remove(i)
+    del elementos[:]
+    
+    
 def comenzar_nuevo_juego():
     print "Boss jefe"
     global sonido
     sonido.stop()
 
 
-    dropLista() #ELIMINO ANIMCACION MENU
+    #dropLista() #ELIMINO ANIMCACION MENU
+   
     nivel = Nivel.Nivel(screen, ALTO, ANCHO)
     nivel.iniciar()
-    salir_del_programa()
+    
+    del nivel
+    global sonido
+    sonido.play(-1)
+    
+    #cargarDatos(PATH_ANIMACION_MENU)
+    
 
 def mostrar_opciones():
     print " Instrucciones."
@@ -154,7 +164,7 @@ def cargarDatos(path):
     while contador != 30:
         elementos.append(pygame.image.load(path + str(contador) + ".png"))
         contador +=1
-
+    
 def salir_del_programa():
     import sys
     print " Chau."
@@ -163,6 +173,9 @@ def salir_del_programa():
 
 if __name__ == '__main__':
 
+    gc.set_debug(gc.DEBUG_LEAK)
+    gc.enable()
+    print gc.isenabled()
     salir = False
     opciones = [
         ("Play", comenzar_nuevo_juego),

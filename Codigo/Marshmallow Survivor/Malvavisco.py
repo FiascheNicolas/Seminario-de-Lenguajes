@@ -254,3 +254,12 @@ class Malvavisco(pygame.sprite.Sprite):
 
     def piedraLanzada(self):
         return self.thrown
+    def dropListas(self):
+        del self.animacionIdle[:]
+        del self.animacionIdleRock[:]
+        del self.animacionJump
+        del self.animacionJumpDown
+        del self.animacionRun[:]
+        del self.animacionRunRock[:]
+        del self.animacionThrowRock[:]
+        

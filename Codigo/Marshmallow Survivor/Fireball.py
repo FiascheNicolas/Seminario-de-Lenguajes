@@ -85,4 +85,5 @@ class Fireball(pygame.sprite.Sprite):
         self.animacionIdle = self.cargarImagen(posMalvaX,posMalvaY,posChefX,posChefY)
 
 
-
+    def dropLista(self):
+        del self.animacionIdle[:]

@@ -34,7 +34,8 @@ class LifeBar(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.lifebar[self.vidas], (self.alto, self.ancho))
         
          
-        
+    def dropLista(self):
+        del self.lifebar    
 
     
 

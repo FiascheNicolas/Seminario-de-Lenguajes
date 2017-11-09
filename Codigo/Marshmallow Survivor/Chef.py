@@ -86,3 +86,6 @@ class Chef(pygame.sprite.Sprite):
             contador += 1
 
         return listaAnimacion
+    def dropListas(self):
+        del self.animacionAtack[:]
+        del self.animacionIdle[:]
