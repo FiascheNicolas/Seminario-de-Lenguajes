@@ -49,9 +49,7 @@ class Nivel():
         ejecutandoNivel = True
         global sonidoNivel
         sonidoNivel.play(-1)
-        gc.set_debug(gc.DEBUG_LEAK)
-        gc.enable()
-        print gc.isenabled()
+       
 
         while ejecutandoNivel:
             self.clock.tick(self.fps)
@@ -69,7 +67,7 @@ class Nivel():
                     self.piedra.actualizarPosicion(-200,600)
                     self.lifebar.vidas -=1
                     if self.lifebar.vidas == 0:
-                        sonidoNivel.stop()
+                        
                         self.juegoGanado()
                         self.finJuego = True
                         ejecutandoNivel =False
@@ -114,7 +112,7 @@ class Nivel():
                     False, pygame.sprite.collide_circle)
                 if hits:
                     #self.fireball.sonidoColision.play()
-                    sonidoNivel.stop()
+                    
                     self.fireball.die(True)
                     self.juegoPerdido()
                     self.finJuego = True
@@ -205,6 +203,8 @@ class Nivel():
             self.screen.blit(text_surface,text_rect)
 
     def juegoGanado(self):
+        global sonidoNivel
+        sonidoNivel.stop()
         global sonidoWin
         sonidoWin.play(0)
         self.malvavisco.kill()
@@ -216,6 +216,8 @@ class Nivel():
         self.background.image = pygame.transform.scale(self.background.fondo, (1360,760)) # el alto y ancho debe ser el mismo q del screen
       
     def eliminarTodo(self):
+        global sonidoNivel
+        sonidoNivel.stop()
         self.malvavisco.dropListas()
         del self.malvavisco
         self.lifebar.dropLista()
@@ -223,6 +225,16 @@ class Nivel():
         self.fireball.dropLista()
         del self.fireball
         del self.piedra
+        for i in self.spritesPrincipales:
+            self.spritesPrincipales.remove(i)
+        for i in self.spriteBackground:
+            self.spriteBackground.remove(i)
+        for i in self.spritesFireball:
+            self.spritesFireball.remove(i)
+        
+        for i in self.spritesPiedra:
+            self.spritesPiedra.remove(i)
+        
         
     def juegoPerdido(self):  
         global sonidoLose
