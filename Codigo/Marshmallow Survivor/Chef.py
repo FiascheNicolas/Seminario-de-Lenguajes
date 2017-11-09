@@ -1,4 +1,5 @@
 import pygame
+import LifeBar
 IDLE = 29
 ATACK=38
 PATH_IDLE = "imagenes/AnimacionesChef/Idle/"
@@ -17,6 +18,9 @@ class Chef(pygame.sprite.Sprite):
         self.posIdle = 0
         self.posAtack=0
         self.vidas = 4
+        
+        
+    
         #
         #Carga de animaciones
         self.animacionIdle = self.cargarAnimacion(IDLE,PATH_IDLE)
@@ -50,6 +54,7 @@ class Chef(pygame.sprite.Sprite):
         return listaAnimacionIdleChef
 
     def update(self, *args):
+       
         if not self.attacking:
             self.actualizarIdle()
         else:
@@ -64,7 +69,7 @@ class Chef(pygame.sprite.Sprite):
             self.attacking = False
             self.throwingFireball = False
 
-        if (self.posAtack == ATACK - 1):
+        if (self.posAtack == ATACK - 7):
             self.throwingFireball = True
 
     def actualizarIdle(self):
