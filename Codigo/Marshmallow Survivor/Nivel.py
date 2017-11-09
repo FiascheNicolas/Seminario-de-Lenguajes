@@ -7,6 +7,7 @@ import threading
 import time
 import Fireball
 import Piedra
+import LifeBar
 
 #0 a 1300
 
@@ -56,8 +57,8 @@ class Nivel():
                         pygame.sprite.collide_circle)
                 if hitsChef:
                     self.piedra.actualizarPosicion(-200,600)
-                    self.chef.vidas -= 1
-                    if self.chef.vidas == 3:
+                    self.lifebar.vidas -=1
+                    if self.lifebar.vidas == 0:
                         self.juegoGanado()
                         self.finJuego = True
 
@@ -71,7 +72,7 @@ class Nivel():
 
             if self.chef.attacking:
                 if self.chef.throwingFireball:
-                    self.fireball.actualizarPosicion(self.chef.rect.centerx-40, self.chef.rect.centery,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
+                    self.fireball.actualizarPosicion(self.chef.rect.centerx-40, self.chef.rect.centery+40,self.malvavisco.devolverPosicionX(),self.malvavisco.devolverPosicionY())
                     self.fireball.fireballExiste = True
 
             if self.contador % 720 == 0 and not self.malvavisco.rock and not self.piedra.thrown and not self.chefFurioso:
@@ -120,7 +121,10 @@ class Nivel():
 
     def cargaDeDatos(self):
         self.malvavisco = Malvavisco.Malvavisco(375,550,150,150)
+        
         self.spritesPrincipales.add(self.malvavisco)
+        self.lifebar = LifeBar.LifeBar(50,0,500,250)
+        self.spritesPrincipales.add(self.lifebar)
         self.chef = Chef.Chef(500,0,250,250)
         self.spritesPrincipales.add(self.chef)
         self.background = Background.Background(0,0,1360,760)
