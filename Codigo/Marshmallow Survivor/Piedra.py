@@ -26,7 +26,7 @@ class Piedra(pygame.sprite.Sprite):
 
         if self.thrown:
             self.image = pygame.transform.rotate(self.image, self.grados)
-            self.rect.y -= 2
+            self.rect.y -= 5
             if self.rect.y < -30:
                 self.thrown = False
 
@@ -41,8 +41,8 @@ class Piedra(pygame.sprite.Sprite):
         self.rect.x = posicionX
 
     def piedraLanzada(self, malvavisco):
-        self.rect.y = malvavisco.rect.y - 20
-        self.rect.x = malvavisco.rect.x
+        self.rect.y = malvavisco.rect.y - 10
+        self.rect.x = malvavisco.rect.x + 25
 
     def haveBeenThrown(self):
         return self.thrown
