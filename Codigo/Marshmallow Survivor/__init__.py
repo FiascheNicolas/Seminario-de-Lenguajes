@@ -141,7 +141,7 @@ def comenzar_nuevo_juego():
     sonido.stop()
 
 
-    #dropLista() #ELIMINO ANIMCACION MENU
+    dropLista() #ELIMINO ANIMCACION MENU
    
     nivel = Nivel.Nivel(screen, ALTO, ANCHO)
     nivel.iniciar()
@@ -150,14 +150,38 @@ def comenzar_nuevo_juego():
     global sonido
     sonido.play(-1)
     
-    #cargarDatos(PATH_ANIMACION_MENU)
+    cargarDatos(PATH_ANIMACION_MENU)
     
 
 def mostrar_opciones():
-    print " Instrucciones."
+    fondo = pygame.image.load("imagenes/Menu/InstruccionesV3.png").convert_alpha()
+    salir = False
+    while not salir:
+        for e in pygame.event.get():
+            if e.type == pygame.KEYDOWN:
+                if e.key == pygame.K_ESCAPE:
+                    salir = True
+
+        screen.blit(fondo, (0, 0))
+        
+        pygame.display.flip()
+        pygame.time.delay(10)
+        
+    
 
 def creditos():
-    print " Pirulin."
+    fondo = pygame.image.load("imagenes/Menu/Credits.png").convert_alpha()
+    salir = False
+    while not salir:
+        for e in pygame.event.get():
+            if e.type == pygame.KEYDOWN:
+                if e.key == pygame.K_ESCAPE:
+                    salir = True
+
+        screen.blit(fondo, (0, 0))
+        
+        pygame.display.flip()
+        pygame.time.delay(10)
 def cargarDatos(path):
     global elementos
     contador=1
@@ -173,9 +197,9 @@ def salir_del_programa():
 
 if __name__ == '__main__':
 
-    gc.set_debug(gc.DEBUG_LEAK)
+    #gc.set_debug(gc.DEBUG_LEAK)
     gc.enable()
-    print gc.isenabled()
+    #print gc.isenabled()
     salir = False
     opciones = [
         ("Play", comenzar_nuevo_juego),
@@ -206,6 +230,7 @@ if __name__ == '__main__':
                 if e.key == pygame.K_ESCAPE:
                     salir = True
 
+        
         screen.blit(fondo, (0, 0))
         menu.actualizar()
         menu.imprimir(screen)
