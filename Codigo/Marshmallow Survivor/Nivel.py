@@ -238,7 +238,7 @@ class Nivel():
         self.lifebar.dropLista()
         del self.lifebar
         self.fireball.dropLista()
-        self.background.dropLista()
+
         del self.background
         del self.fireball
         del self.piedra
