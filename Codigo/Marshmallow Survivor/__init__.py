@@ -218,7 +218,7 @@ if __name__ == '__main__':
         ]
 
     pygame.font.init()
-    screen = pygame.display.set_mode((ALTO, ANCHO))
+    screen = pygame.display.set_mode((ALTO, ANCHO),pygame.FULLSCREEN)
     pygame.display.toggle_fullscreen()
     cargarDatos(PATH_ANIMACION_MENU)
     global elementos
