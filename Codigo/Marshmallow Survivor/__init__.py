@@ -133,8 +133,8 @@ class Menu:
 def dropLista():
     global elementos
     del elementos[:]
-    
-    
+
+
 def comenzar_nuevo_juego():
     print "Boss jefe"
     global sonido
@@ -142,16 +142,16 @@ def comenzar_nuevo_juego():
 
 
     dropLista() #ELIMINO ANIMCACION MENU
-   
+
     nivel = Nivel.Nivel(screen, ALTO, ANCHO)
     nivel.iniciar()
-    
+
     del nivel
     global sonido
     sonido.play(-1)
-    
+
     cargarDatos(PATH_ANIMACION_MENU)
-    
+
 
 def mostrar_opciones():
     fondo = pygame.image.load("imagenes/Menu/InstruccionesV3.png").convert_alpha()
@@ -163,11 +163,11 @@ def mostrar_opciones():
                     salir = True
 
         screen.blit(fondo, (0, 0))
-        
+
         pygame.display.flip()
         pygame.time.delay(10)
-        
-    
+
+
 
 def creditos():
     fondo = pygame.image.load("imagenes/Menu/Credits.png").convert_alpha()
@@ -179,7 +179,7 @@ def creditos():
                     salir = True
 
         screen.blit(fondo, (0, 0))
-        
+
         pygame.display.flip()
         pygame.time.delay(10)
 def cargarDatos(path):
@@ -188,7 +188,7 @@ def cargarDatos(path):
     while contador != 30:
         elementos.append(pygame.image.load(path + str(contador) + ".png"))
         contador +=1
-    
+
 def salir_del_programa():
     import sys
     print " Chau."
@@ -230,7 +230,7 @@ if __name__ == '__main__':
                 if e.key == pygame.K_ESCAPE:
                     salir = True
 
-        
+
         screen.blit(fondo, (0, 0))
         menu.actualizar()
         menu.imprimir(screen)

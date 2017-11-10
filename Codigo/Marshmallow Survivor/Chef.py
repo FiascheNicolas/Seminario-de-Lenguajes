@@ -18,9 +18,9 @@ class Chef(pygame.sprite.Sprite):
         self.posIdle = 0
         self.posAtack=0
         self.vidas = 4
-        
-        
-    
+
+
+
         #
         #Carga de animaciones
         self.animacionIdle = self.cargarAnimacion(IDLE,PATH_IDLE)
@@ -54,7 +54,7 @@ class Chef(pygame.sprite.Sprite):
         return listaAnimacionIdleChef
 
     def update(self, *args):
-       
+
         if not self.attacking:
             self.actualizarIdle()
         else:

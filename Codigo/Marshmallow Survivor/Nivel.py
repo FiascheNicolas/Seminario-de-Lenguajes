@@ -11,7 +11,7 @@ import LifeBar
 import gc
 sonidoWin = pygame.mixer.Sound("Sonidos/juegoGanado.wav")
 sonidoNivel = pygame.mixer.Sound("Sonidos/Nivel.wav")
-sonidoLose = pygame.mixer.Sound("Sonidos/juegoGanado.wav")
+sonidoLose = pygame.mixer.Sound("Sonidos/juegoPerdido.wav")
 #0 a 1300
 
 
@@ -38,8 +38,8 @@ class Nivel():
         self.piedraSiendoLanzada = False
         self.chefFurioso = False
         self.finJuego = False
-        
-        
+
+
 
     def iniciar(self):
         self.pantallaDeCarga()
@@ -49,7 +49,7 @@ class Nivel():
         ejecutandoNivel = True
         global sonidoNivel
         sonidoNivel.play(-1)
-       
+
 
         while ejecutandoNivel:
             self.clock.tick(self.fps)
@@ -67,7 +67,7 @@ class Nivel():
                     self.piedra.actualizarPosicion(-200,600)
                     self.lifebar.vidas -=1
                     if self.lifebar.vidas == 0:
-                        
+
                         self.juegoGanado()
                         self.finJuego = True
                         ejecutandoNivel =False
@@ -102,7 +102,7 @@ class Nivel():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         ejecutandoNivel = False
-                        
+
                         sonidoNivel.stop()
                     if event.key == pygame.K_p:
                         self.pausado = not self.pausado
@@ -111,13 +111,11 @@ class Nivel():
                 hits = pygame.sprite.spritecollide(self.malvavisco, self.spritesFireball,
                     False, pygame.sprite.collide_circle)
                 if hits:
-                    #self.fireball.sonidoColision.play()
-                    
                     self.fireball.die(True)
                     self.juegoPerdido()
                     self.finJuego = True
                     ejecutandoNivel =False
-                    
+
 
             if not self.pausado:
                 self.spritesPrincipales.update()
@@ -135,8 +133,8 @@ class Nivel():
                 self.drawPauseScreen("PAUSA", 105,(255,0,0), self.alto / 2, self.ancho / 2)
 
             pygame.display.flip()
-       
-       
+
+
         self.eliminarTodo()
         while self.finJuego:
             for event in pygame.event.get():
@@ -147,10 +145,10 @@ class Nivel():
                         sonidoLose.stop()
                         self.finJuego = False
                         del self.background
-                   
+
     def cargaDeDatos(self):
         self.malvavisco = Malvavisco.Malvavisco(375,550,150,150)
-        
+
         self.spritesPrincipales.add(self.malvavisco)
         self.lifebar = LifeBar.LifeBar(50,0,500,250)
         self.spritesPrincipales.add(self.lifebar)
@@ -208,13 +206,10 @@ class Nivel():
         global sonidoWin
         sonidoWin.play(0)
         self.malvavisco.kill()
-        
         self.fireball.kill()
-        
-        
         self.background.fondo = pygame.image.load("imagenes/FinalJuego/Victory.png").convert_alpha()
         self.background.image = pygame.transform.scale(self.background.fondo, (1360,760)) # el alto y ancho debe ser el mismo q del screen
-      
+
     def eliminarTodo(self):
         global sonidoNivel
         sonidoNivel.stop()
@@ -231,14 +226,13 @@ class Nivel():
             self.spriteBackground.remove(i)
         for i in self.spritesFireball:
             self.spritesFireball.remove(i)
-        
+
         for i in self.spritesPiedra:
             self.spritesPiedra.remove(i)
-        
-        
-    def juegoPerdido(self):  
+
+
+    def juegoPerdido(self):
         global sonidoLose
         sonidoLose.play(0)
         self.background.fondo = pygame.image.load("imagenes/FinalJuego/GameOver_V4.png").convert_alpha()
         self.background.image = pygame.transform.scale(self.background.fondo, (1360,760)) # el alto y ancho debe ser el mismo q del screen
-        

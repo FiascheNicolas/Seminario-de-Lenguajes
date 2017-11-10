@@ -262,4 +262,3 @@ class Malvavisco(pygame.sprite.Sprite):
         del self.animacionRun[:]
         del self.animacionRunRock[:]
         del self.animacionThrowRock[:]
-        
