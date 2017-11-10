@@ -6,13 +6,20 @@ import Nivel
 import gc
 
 
+RED =  (255,0,0)
 ALTO = 1360
 ANCHO = 768
 sonido = pygame.mixer.Sound("Sonidos/Menu.wav")
 elementos =[]
 PATH_ANIMACION_MENU = "imagenes/Menu/AnimacionMenu/"
 
-
+def drawText(surf, text, size, x, y):
+            font_name = pygame.font.match_font('arial')
+            font = pygame.font.Font(font_name,size)
+            text_surface = font.render(text, True, RED)
+            text_rect = text_surface.get_rect()
+            text_rect.midtop = (x,y)
+            surf.blit(text_surface,text_rect)
 class Opcion:
     def __init__(self, fuente, titulo, x, y, paridad, funcion_asignada):
         self.imagen_normal = fuente.render(titulo, 1, (0, 0, 0))
@@ -133,25 +140,27 @@ class Menu:
 def dropLista():
     global elementos
     del elementos[:]
-
-
+    
+    
 def comenzar_nuevo_juego():
-    print "Boss jefe"
+    
     global sonido
     sonido.stop()
 
 
     dropLista() #ELIMINO ANIMCACION MENU
-
+   
     nivel = Nivel.Nivel(screen, ALTO, ANCHO)
     nivel.iniciar()
-
+    
+    
+    
     del nivel
     global sonido
     sonido.play(-1)
-
+    
     cargarDatos(PATH_ANIMACION_MENU)
-
+    
 
 def mostrar_opciones():
     fondo = pygame.image.load("imagenes/Menu/InstruccionesV3.png").convert_alpha()
@@ -163,11 +172,11 @@ def mostrar_opciones():
                     salir = True
 
         screen.blit(fondo, (0, 0))
-
+        #drawText(screen, "presione ESC para volver", 18, ALTO/2, ANCHO/2)
         pygame.display.flip()
         pygame.time.delay(10)
-
-
+        
+    
 
 def creditos():
     fondo = pygame.image.load("imagenes/Menu/Credits.png").convert_alpha()
@@ -179,7 +188,7 @@ def creditos():
                     salir = True
 
         screen.blit(fondo, (0, 0))
-
+        
         pygame.display.flip()
         pygame.time.delay(10)
 def cargarDatos(path):
@@ -188,10 +197,10 @@ def cargarDatos(path):
     while contador != 30:
         elementos.append(pygame.image.load(path + str(contador) + ".png"))
         contador +=1
-
+    
 def salir_del_programa():
     import sys
-    print " Chau."
+    
     sys.exit(0)
 
 
@@ -202,10 +211,10 @@ if __name__ == '__main__':
     #print gc.isenabled()
     salir = False
     opciones = [
-        ("Play", comenzar_nuevo_juego),
-        ("Instructions", mostrar_opciones),
-        ("Credits", creditos),
-        ("Exit", salir_del_programa)
+        ("Jugar", comenzar_nuevo_juego),
+        ("Instrucciones", mostrar_opciones),
+        ("Creditos", creditos),
+        ("Salir", salir_del_programa)
         ]
 
     pygame.font.init()
@@ -230,7 +239,7 @@ if __name__ == '__main__':
                 if e.key == pygame.K_ESCAPE:
                     salir = True
 
-
+        
         screen.blit(fondo, (0, 0))
         menu.actualizar()
         menu.imprimir(screen)
